@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NzCalendarModule} from "ng-zorro-antd/calendar";
 import {NzIconModule} from "ng-zorro-antd/icon";
+import { TripTileComponent } from './components/trip-tile/trip-tile.component';
 
 registerLocaleData(en);
 
@@ -26,6 +27,7 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     CalendarComponent,
+    TripTileComponent,
   ],
   imports: [
     BrowserModule,

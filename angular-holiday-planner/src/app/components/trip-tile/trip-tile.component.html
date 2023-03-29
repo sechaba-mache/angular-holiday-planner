@@ -1,0 +1,21 @@
+<!--Use evaluated class attribute for the row numbers in the template-->
+<!--And once you set up the backend, when running an ngFor on this-->
+<!--Use the length of the array + 1 for the headings for the rows and index to specify-->
+<!--Which row the created container is going to be on-->
+
+<div class="events-section ">
+  <div class=" grid grid-cols-[repeat(3, 1fr)] grid-rows-[repeat(1, 3rem)] p-5 bg-slate-500 rounded-t-xl">
+    <h1 class="col-[1/2] row-[1/2] text-center">Name</h1>
+    <h1 class="col-[2/3] row-[1/2] text-center">Location</h1>
+  <!--  <h1 class="col-[3/4] row-[1/2]">Itinerary Count</h1>-->
+    <h1 class="col-[3/4] row-[1/2] text-center">Cost</h1>
+
+  </div>
+
+  <div class="grid grid-cols-[repeat(3, 1fr)] grid-rows-[repeat(1, 3rem)] bg-slate-100 pb-5 pl-5 pr-5">
+
+    <h1 class="col-[1/2] row-[2/3] pt-5 text-center">MyTrip</h1>
+    <h1 class="col-[2/3] row-[2/3] pt-5 text-center">Somewhere</h1>
+    <h1 class="col-[3/4] row-[2/3] pt-5 text-center">Moneies</h1>
+  </div>
+</div>
