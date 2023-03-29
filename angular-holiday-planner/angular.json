@@ -105,11 +105,21 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "angular-holiday-planner:build:production",
+            "firebaseProject": "angular-holiday-planner-89635",
+            "firebaseHostingSite": "angular-holiday-planner-89635"
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "db088dd3-5846-480c-876b-628712bcb58e"
+    "analytics": "7caf5bd5-d463-40b7-b397-5716eb804a86"
   }
 }
