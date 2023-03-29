@@ -18,13 +18,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NzCalendarModule} from "ng-zorro-antd/calendar";
+import {NzIconModule} from "ng-zorro-antd/icon";
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponent
+    CalendarComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,13 +33,14 @@ registerLocaleData(en);
 
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
 
     CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NzCalendarModule
+    NzCalendarModule,
+    NzIconModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }
@@ -46,4 +48,4 @@ registerLocaleData(en);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
