@@ -2,11 +2,11 @@
   <div class="burger-menu flex justify-center items-center" >
     <span (click)="openMenu()" class="text-xl ml-4" nz-icon nzType="menu" nzTheme="outline"></span>
     <ng-container *ngIf="menu">
-      <div class="absolute ml-[11rem] w-56 mt-[9rem] bg-blue-500">
+      <div class="absolute ml-[11rem] w-56 mt-[11rem] bg-blue-500">
         <div class="options text-center mt-4">
-          <h1 class="mb-4">Calendar</h1>
-          <h1 class="mb-4">Booked Flights</h1>
-          <h1></h1>
+          <p class="mb-4">Calendar</p>
+          <p class="mb-4">Booked Flights</p>
+          <p class="mb-4">Logout</p>
         </div>
       </div>
     </ng-container>
@@ -15,6 +15,7 @@
   <div class="heading h-16 w-full flex justify-center items-center">
     <h1>PlanMe</h1>
   </div>
+
 </div>
 
 <div class="grid grid-rows-homeBodyRows grid-cols-homeBodyColumns pt-24 w-screen h-screen" >
