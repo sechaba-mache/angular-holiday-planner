@@ -20,6 +20,8 @@ import {NzCalendarModule} from "ng-zorro-antd/calendar";
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import {AuthService} from "./services/auth.service";
+import {NzIconModule} from "ng-zorro-antd/icon";
+import { TripTileComponent } from './components/trip-tile/trip-tile.component';
 
 registerLocaleData(en);
 
@@ -29,6 +31,8 @@ registerLocaleData(en);
     CalendarComponent,
     LoginComponent,
     RegisterComponent,
+    TripTileComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,8 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     NzCalendarModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzIconModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
@@ -49,4 +54,4 @@ registerLocaleData(en);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

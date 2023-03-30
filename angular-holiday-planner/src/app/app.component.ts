@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-holiday-planner';
+
+  menu = false;
+
+  openMenu() {
+    this.menu = !this.menu
+  }
 }
