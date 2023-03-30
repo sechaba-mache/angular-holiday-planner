@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUser} from "../../models/user";
-import { first, Observable, switchMap} from "rxjs";
+import {catchError, first, Observable, switchMap} from "rxjs";
 import { UserCredential } from '@angular/fire/auth';
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {AuthService} from "../../services/auth.service";
@@ -13,7 +13,7 @@ import {AuthService} from "../../services/auth.service";
 })
 export class RegisterComponent {
 
-  constructor(private register: AuthService) { }
+  constructor(private auth: AuthService) { }
 
   register$: Observable<UserCredential> | null = null;
 
@@ -44,13 +44,18 @@ export class RegisterComponent {
       // username: this.username?.value!
     }
 
-    fromPromise(this.register.registerUser(user)).pipe(
+    fromPromise(this.auth.registerUser(user)).pipe(
       first(),
-      switchMap(async res => res)
-      ).subscribe(user => {
-        this.register.user = user;
-        this.register.loggedIn = true
-      });
+      switchMap(async res => res),
+      catchError(() => {return "error"})
+    ).subscribe(user => {
+      //If error stay on same route and ask user to resubmit else set relevant data and navigate to home route
+      if(user !== "error"){
+        this.auth.user = user as UserCredential;
+        this.auth.loggedIn = true
+      }
+
+    });
 
   }
 }
