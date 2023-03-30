@@ -1,0 +1,52 @@
+<div class="login-form w-screen h-screen flex justify-center items-center">
+  <form [formGroup]="registerForm" class="w-[26rem] pb-6 bg-slate-100 rounded-xl text-center">
+    <h1 class="text-center mt-5 font-extrabold text-2xl">SignUp</h1>
+
+    <div class="form-content flex flex-wrap mt-5">
+<!--      <label class="w-full text-xl font-bold m-3 ">Username:</label>-->
+<!--      <input formControlName="username" type="text" placeholder="Username" class="ml-24 w-56 h-7 pl-3">-->
+<!--      <ng-container *ngIf="!(username?.invalid && (username?.dirty || username?.touched)); else notValid" />-->
+
+      <label class="w-full text-xl font-bold m-3 ">Email:</label>
+      <input formControlName="email" type="email" placeholder="Email" class="ml-24 w-56 h-7 pl-3">
+      <ng-container *ngIf="email?.invalid && (email?.dirty || email?.touched);">
+        <ng-container *ngIf="!email?.errors?.['required']; else notValid" />
+
+        <ng-container *ngIf="email?.errors?.['email']">
+          <p style="color: red; width: 100%">Input must be an email address</p>
+        </ng-container>
+      </ng-container>
+
+      <label class="w-full text-xl font-bold m-3">Password:</label>
+      <input formControlName="password" type="password" placeholder="Password" class="ml-24 w-56 h-7 pl-3">
+      <ng-container *ngIf="password?.invalid && (password?.dirty || password?.touched);">
+        <ng-container *ngIf="!password?.errors?.['required']; else notValid" />
+
+        <ng-container *ngIf="password?.errors?.['pattern']">
+          <p style="color: red; width: 100%">Input must be alphanumeric</p>
+        </ng-container>
+
+        <ng-container *ngIf="password?.errors?.['minlength']">
+          <p style="color: red; width: 100%">Input must be at least 8 characters long</p>
+        </ng-container>
+      </ng-container>
+
+    </div>
+
+    <ng-container *ngIf="registerForm.invalid; else validButton">
+      <button type="submit" class="mt-7 h-8 w-20 bg-slate-500 rounded text-white" disabled>Register</button>
+    </ng-container>
+
+    <p class="mt-3">Already registered? <a class="text-blue-500">Login</a></p>
+
+  </form>
+
+</div>
+
+<ng-template #notValid>
+  <p style="color: red; width: 100%">Input is required</p>
+</ng-template>
+
+<ng-template #validButton>
+  <button type="submit" class="mt-7 h-8 w-20 bg-blue-500 rounded text-white" (click)="submitForm()">Register</button>
+</ng-template>

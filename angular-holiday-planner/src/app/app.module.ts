@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -14,35 +13,39 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NzCalendarModule} from "ng-zorro-antd/calendar";
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import {AuthService} from "./services/auth.service";
 
 registerLocaleData(en);
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponent
+    CalendarComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
-
+    provideFirestore(() => getFirestore()),
     CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NzCalendarModule
+    NzCalendarModule,
+    ReactiveFormsModule
   ],
   providers: [
-    { provide: NZ_I18N, useValue: en_US }
-
+    { provide: NZ_I18N, useValue: en_US },
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
