@@ -22,6 +22,8 @@ import { RegisterComponent } from './components/register/register.component';
 import {AuthService} from "./services/auth.service";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import { TripTileComponent } from './components/trip-tile/trip-tile.component';
+import { NavComponent } from './components/nav/nav.component';
+import {HomePageComponent} from "./pages/home-page/home-page.component";
 
 registerLocaleData(en);
 
@@ -32,7 +34,8 @@ registerLocaleData(en);
     LoginComponent,
     RegisterComponent,
     TripTileComponent,
-
+    NavComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

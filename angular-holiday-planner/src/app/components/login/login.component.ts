@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUser} from "../../models/user";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {catchError, first, switchMap} from "rxjs";
 import {AuthService} from "../../services/auth.service";
 import {UserCredential} from "@angular/fire/auth";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,11 @@ import {UserCredential} from "@angular/fire/auth";
 })
 export class LoginComponent {
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
   });
 
   get email() {
@@ -46,6 +47,8 @@ export class LoginComponent {
       }
 
     });
+
+    this.router.navigate(["../home/calendar"])
 
   }
 }

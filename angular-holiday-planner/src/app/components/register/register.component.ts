@@ -5,6 +5,7 @@ import {catchError, first, Observable, switchMap} from "rxjs";
 import { UserCredential } from '@angular/fire/auth';
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ import {AuthService} from "../../services/auth.service";
 })
 export class RegisterComponent {
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   register$: Observable<UserCredential> | null = null;
 
@@ -56,6 +57,8 @@ export class RegisterComponent {
       }
 
     });
+
+    this.router.navigate(["../home/calendar"])
 
   }
 }
