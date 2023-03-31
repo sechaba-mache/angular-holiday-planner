@@ -6,11 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'angular-holiday-planner';
 
-  menu = false;
-
-  openMenu() {
-    this.menu = !this.menu
-  }
 }

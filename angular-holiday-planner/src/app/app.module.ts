@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -14,12 +13,17 @@ import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NzCalendarModule} from "ng-zorro-antd/calendar";
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import {AuthService} from "./services/auth.service";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import { TripTileComponent } from './components/trip-tile/trip-tile.component';
+import { NavComponent } from './components/nav/nav.component';
+import {HomePageComponent} from "./pages/home-page/home-page.component";
 
 registerLocaleData(en);
 
@@ -27,26 +31,29 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     CalendarComponent,
+    LoginComponent,
+    RegisterComponent,
     TripTileComponent,
+    NavComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-
     CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NzCalendarModule,
+    ReactiveFormsModule,
     NzIconModule
   ],
   providers: [
-    { provide: NZ_I18N, useValue: en_US }
-
+    { provide: NZ_I18N, useValue: en_US },
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
