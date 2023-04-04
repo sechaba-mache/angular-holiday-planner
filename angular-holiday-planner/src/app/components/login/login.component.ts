@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUser} from "../../models/user";
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {catchError, first, switchMap} from "rxjs";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../services/auth/auth.service";
 import {UserCredential} from "@angular/fire/auth";
 import {Router} from "@angular/router";
 

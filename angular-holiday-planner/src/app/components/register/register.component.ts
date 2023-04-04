@@ -4,7 +4,7 @@ import {IUser} from "../../models/user";
 import {catchError, first, switchMap} from "rxjs";
 import { UserCredential } from '@angular/fire/auth';
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
-import {AuthService} from "../../services/auth.service";
+import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
 
 @Component({

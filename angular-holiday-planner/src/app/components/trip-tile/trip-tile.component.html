@@ -1,23 +1,19 @@
-<!--Use evaluated class attribute for the row numbers in the template-->
-<!--And once you set up the backend, when running an ngFor on this-->
-<!--Use the length of the array + 1 for the headings for the rows and index to specify-->
-<!--Which row the created container is going to be on-->
-
 <div class="events-section ">
-  <div class=" grid grid-cols-[repeat(3, 1fr)] grid-rows-[repeat(1, 3rem)] p-5 bg-slate-500 rounded-t-xl">
+  <div class="grid grid-cols-[repeat(3, 1fr)] grid-rows-[repeat(1, 3rem)] p-5 bg-slate-500 rounded-t-xl">
     <p class="col-[1/2] row-[1/2] text-center">Name</p>
-    <p class="col-[2/3] row-[1/2] text-center">Location</p>
+    <p class="col-[2/3] row-[1/2] text-center">Events</p>
   <!--  <h1 class="col-[3/4] row-[1/2]">Itinerary Count</h1>-->
     <p class="col-[3/4] row-[1/2] text-center">Cost</p>
 
   </div>
 
-<!--  This is going to become an ngFor -->
-  <div class="grid grid-cols-[repeat(3, 1fr)] grid-rows-[repeat(1, 3rem)] bg-slate-100 pb-5 pl-5 pr-5">
+  <div [class]="'grid grid-cols-[repeat(3, 1fr)] grid-rows-[repeat('+ rowCount + '1, 3rem)] bg-slate-100 pb-5 pl-5 pr-5'">
+    <ng-container *ngFor="let trip of (trips$ | async); index as i">
+      <p [class]="'col-[1/2] row-['+ 1 +'/3] pt-5 text-center'">{{trip.tripName}}</p>
+      <p [class]="'col-[2/3] row-['+ 1 +'/3] pt-5 text-center'">{{trip.itinerary.activities.length}}</p>
+      <p [class]="'col-[3/4] row-['+ 1 +'/3] pt-5 text-center'">{{trip.itinerary.activities[0].cost}}</p>
+    </ng-container>
 
-    <p class="col-[1/2] row-[2/3] pt-5 text-center">MyTrip</p>
-    <p class="col-[2/3] row-[2/3] pt-5 text-center">Somewhere</p>
-    <p class="col-[3/4] row-[2/3] pt-5 text-center">Monies</p>
   </div>
 </div>
 
