@@ -14,11 +14,17 @@ export class TripTileComponent {
 
   trips$: Observable<ITrip[]> | undefined;
   rowCount = 0;
+  showForm = false;
+
   constructor(private store: Store) {
     this.trips$ = store.select(selectUserTrips).pipe(
       tap(trips =>
         this.rowCount = trips.length
       )
     );
+  }
+
+  displayForm() {
+    this.showForm = true;
   }
 }

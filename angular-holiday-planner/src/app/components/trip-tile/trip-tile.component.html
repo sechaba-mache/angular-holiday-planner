@@ -19,5 +19,9 @@
 
 <div class="footer flex flex-nowrap justify-center content-center fixed bottom-0 right-0 m-7 p-3 rounded-xl bg-blue-500">
   <p class="mr-3">Add event</p>
-  <span nz-icon nzType="plus-circle" nzTheme="outline" class="mt-1"></span>
+  <span nz-icon nzType="plus-circle" nzTheme="outline" class="mt-1" (click)="displayForm()"></span>
 </div>
+
+<ng-container *ngIf="showForm">
+
+</ng-container>
