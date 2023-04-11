@@ -62,11 +62,11 @@ export class ActivityFormComponent {
     if (!open) {
       this.endDatePicker.open();
     }
-    console.log('handleStartOpenChange', open);
+    // console.log('handleStartOpenChange', open);
   }
 
   handleEndOpenChange(open: boolean): void {
-    console.log('handleEndOpenChange', open);
+    // console.log('handleEndOpenChange', open);
   }
 
   submitActivityForm(event: MouseEvent) {

@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {IActivityForm, ITripForm} from "../../models/forms";
 import {DatabaseService} from "../../services/database/database.service";
 import {ITrip} from "../../models/trips";
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-add-trip',
@@ -13,7 +14,7 @@ export class AddTripComponent{
   tripForm: ITripForm | undefined
   activityForm: IActivityForm | undefined
 
-  constructor(private database: DatabaseService) {}
+  constructor(private database: DatabaseService, private auth: AuthService) {}
   getTripForm(event: ITripForm) {
     this.tripForm = event
   }
@@ -42,10 +43,10 @@ export class AddTripComponent{
         description: this.tripForm?.itineraryDescription as string,
         itineraryName: this.tripForm?.itineraryName as string
       },
-      tripID: "siufbiurw",
+      tripID: "",
       tripName: this.tripForm?.tripName as string
     };
 
-    this.database.addTrip(trip, "testUser")
+    if(this.auth.user) this.database.addTrip(trip, this.auth.user?.user.uid)
   }
 }

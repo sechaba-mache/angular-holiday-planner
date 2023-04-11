@@ -5,6 +5,7 @@ import {RegisterComponent} from "./forms/register/register.component";
 import {NavComponent} from "./components/nav/nav.component";
 import {HomePageComponent} from "./pages/home-page/home-page.component";
 import {AddTripComponent} from "./pages/add-trip/add-trip.component";
+import {ActivityTileComponent} from "./components/activity-tile/activity-tile.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: "add-trip",
         component: AddTripComponent
+      },
+      {
+        path: ":tripId",
+        component: ActivityTileComponent
       }
     ]
   }

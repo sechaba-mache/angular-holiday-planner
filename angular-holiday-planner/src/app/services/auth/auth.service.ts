@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   login(user: IUser){
-    return signInWithEmailAndPassword(this.auth, user.email, user.password)
+    return signInWithEmailAndPassword(this.auth, user.email, user.password).then(res => this.user = res);
   }
 
   logout() {
