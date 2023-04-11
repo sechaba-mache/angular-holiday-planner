@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from "./components/login/login.component";
-import {RegisterComponent} from "./components/register/register.component";
+import {LoginComponent} from "./forms/login/login.component";
+import {RegisterComponent} from "./forms/register/register.component";
 import {NavComponent} from "./components/nav/nav.component";
 import {HomePageComponent} from "./pages/home-page/home-page.component";
+import {AddTripComponent} from "./pages/add-trip/add-trip.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: "calendar",
         component: HomePageComponent
+      },
+      {
+        path: "add-trip",
+        component: AddTripComponent
       }
     ]
   }

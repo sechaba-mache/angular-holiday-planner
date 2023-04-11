@@ -1,0 +1,40 @@
+<!--<div class="w-screen h-screen flex justify-center items-center">-->
+  <form [formGroup]="tripForm" class="w-[25rem] pb-6 bg-slate-100 rounded-xl text-center">
+    <h1 class="text-center mt-5 font-extrabold text-2xl">Trip Form</h1>
+
+    <div class="form-content flex flex-wrap mt-3">
+      <label class="w-full text-xl font-medium m-3 ">Trip Name:</label>
+      <input formControlName="tripName" type="text" placeholder="Please Enter The Name of Your Trip" class="ml-12 w-[80%] h-7 pl-3 rounded-md">
+      <ng-container *ngIf="tripName?.invalid && (tripName?.dirty || tripName?.touched);">
+        <ng-container *ngIf="!tripName?.errors?.['required']; else notValid" />
+      </ng-container>
+
+      <label class="w-full text-xl font-medium m-3 ">Description:</label>
+      <input formControlName="description" type="text" placeholder="Please Enter a Description for the trip" class="ml-12 w-[80%] h-7 pl-3 rounded-md">
+
+      <label class="w-full text-xl font-medium m-3  ">Itinerary Name:</label>
+      <input formControlName="itineraryName" type="text" placeholder="Please Enter The Name of Your Itinerary" class="ml-12 w-[80%] h-7 pl-3 rounded-md">
+      <ng-container *ngIf="itineraryName?.invalid && (itineraryName?.dirty || itineraryName?.touched);">
+        <ng-container *ngIf="!itineraryName?.errors?.['required']; else notValid" />
+      </ng-container>
+
+      <label class="w-full text-xl font-medium m-3 ">Itinerary Description:</label>
+      <input formControlName="itineraryDescription" type="text" placeholder="Please Enter a Description Your Itinerary" class="ml-12 w-[80%] h-7 pl-3 rounded-md">
+
+    </div>
+
+    <ng-container *ngIf="tripForm.invalid; else validButton">
+      <button type="submit" class="mt-7 h-8 w-20 bg-slate-500 rounded text-white" disabled>Submit</button>
+    </ng-container>
+
+  </form>
+
+<!--</div>-->
+
+<ng-template #validButton>
+  <button type="submit" class="mt-7 h-8 w-20 bg-blue-500 rounded text-white" (click)="submitTripForm()">Submit</button>
+</ng-template>
+
+<ng-template #notValid>
+  <p style="color: red; width: 100%">Input is required</p>
+</ng-template>

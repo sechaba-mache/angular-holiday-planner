@@ -6,7 +6,7 @@ import {
   signOut,
   UserCredential
 } from "@angular/fire/auth";
-import {IUser} from "../models/user";
+import {IUser} from "../../models/user";
 
 @Injectable({
   providedIn: 'root'
