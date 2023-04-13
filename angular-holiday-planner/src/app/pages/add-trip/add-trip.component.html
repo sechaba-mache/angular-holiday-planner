@@ -1,15 +1,13 @@
-<div class="w-screen h-screen pt-20 flex">
+<div class="w-screen pt-20 flex justify-center">
   <ng-container *ngIf="tripForm !== undefined; else displayTripForm">
-      <app-activity-form class="p-5 mt-5" (activityOutputForm)="getActivityForm($event)" (submission)="submitForm()"></app-activity-form>
-<!--      <app-trip-tile class="p-5 mt-5 w-[50%]"></app-trip-tile>-->
+      <app-activity-form (activityOutputForm)="getActivityForm($event)" (submission)="submitForm()"></app-activity-form>
   </ng-container>
 </div>
 
 <ng-template #displayTripForm>
-  <div class="fixed left-0 right-0 ml-auto mr-auto mt-[10rem] z-40 w-fit">
+  <div class="fixed left-0 right-0 ml-auto mr-auto mt-[7rem] z-40 w-fit">
     <app-trip-form (tripOutputForm)="getTripForm($event)"></app-trip-form>
   </div>
-  <app-activity-form class="p-5 mt-5 pointer-events-none opacity-40"></app-activity-form>
-<!--  <app-trip-tile class="p-5 mt-5 w-[52rem] pointer-events-none opacity-40"></app-trip-tile>-->
+  <app-activity-form class="pointer-events-none opacity-40"></app-activity-form>
 
 </ng-template>

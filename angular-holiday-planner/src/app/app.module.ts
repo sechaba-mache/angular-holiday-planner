@@ -34,6 +34,7 @@ import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import { AddTripComponent } from './pages/add-trip/add-trip.component';
 import { TripFormComponent } from './forms/trip-form/trip-form.component';
+import { ActivityTileComponent } from './components/activity-tile/activity-tile.component';
 
 registerLocaleData(en);
 
@@ -49,6 +50,7 @@ registerLocaleData(en);
     ActivityFormComponent,
     AddTripComponent,
     TripFormComponent,
+    ActivityTileComponent,
 
   ],
   imports: [

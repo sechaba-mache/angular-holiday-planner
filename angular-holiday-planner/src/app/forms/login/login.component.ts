@@ -43,12 +43,13 @@ export class LoginComponent {
       //If error stay on same route and ask user to resubmit else set relevant data and navigate to home route
       if(user !== "error"){
         this.auth.user = user as UserCredential;
-        this.auth.loggedIn = true
+        this.auth.loggedIn = true;
+        this.router.navigate(["../home/calendar"])
       }
-
+      else {
+        this.loginForm.reset();
+      }
     });
-
-    this.router.navigate(["../home/calendar"])
 
   }
 }
