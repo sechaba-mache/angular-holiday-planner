@@ -9,9 +9,21 @@
       <p class="flex h-2 w-2 bg-green-500 rounded-full"></p>
     </div>
     <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[2/3] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.tripName}}</p>
-    <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities.length}}</p>
-    <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities[0].cost}}</p>
-    <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities[0].cost}}</p>
+
+    <ng-container *ngIf="trip.itinerary.activities.length > 0; else noEvents">
+      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities.length}}</p>
+      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities[0].cost}}</p>
+      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities[0].cost}}</p>
+    </ng-container>
+
+    <ng-template #noEvents>
+      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">No Events</p>
+      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">No Events</p>
+      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">No Events</p>
+    </ng-template>
+
   </ng-container>
 
 </div>
+
+
