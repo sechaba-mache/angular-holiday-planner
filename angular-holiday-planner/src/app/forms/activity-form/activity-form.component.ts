@@ -1,18 +1,38 @@
-import {Component, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Currencies} from "../../models/currencies";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {IActivityForm} from "../../models/forms";
+import {IActivity} from "../../models/trips";
 
 @Component({
   selector: 'app-activity-form',
   templateUrl: './activity-form.component.html',
   styleUrls: ['./activity-form.component.scss']
 })
-export class ActivityFormComponent {
+export class ActivityFormComponent implements OnChanges {
 
+  @Input() formData: IActivity |undefined;
   @Output() activityOutputForm = new EventEmitter<IActivityForm>();
   @Output() submission = new EventEmitter<MouseEvent>()
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.formData = changes?.['formData'].currentValue;
+    this.activityForm.setValue({
+      activityName: this.formData?.activityName ?? "",
+      description: this.formData?.description ?? "",
+      notes: this.formData?.notes ?? "",
+      startDayTime: this.formData?.startDayTime ?? 0,
+      endDayTime: this.formData?.endDayTime ?? 0,
+      cost: this.formData?.cost ?? 0,
+      startLocation: this.formData?.startLocation ?? "",
+      endLocation: this.formData?.endLocation ?? ""
+    })
+
+    this.selectedCurrency = this.formData?.currency ?? "Select Currency"
+    this.travel = this.formData?.travel ?? false;
+  }
+
 
   travel = false;
   selectedCurrency: string = "Select Currency";
@@ -25,9 +45,9 @@ export class ActivityFormComponent {
     activityName: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     notes: new FormControl(''),
-    startDayTime: new FormControl(''),
-    endDayTime: new FormControl(''),
-    cost: new FormControl('', [Validators.pattern("[0-9]+")]),
+    startDayTime: new FormControl(0),
+    endDayTime: new FormControl(0),
+    cost: new FormControl(0, [Validators.pattern("[0-9]+")]),
     startLocation: new FormControl(''),
     endLocation: new FormControl('')
   })
