@@ -23,6 +23,27 @@ export class DatabaseService {
     )
   }
 
+  deleteTripActivity(tripIndex: number, activityIndex: number, documentName: string) {
+    const docRef = doc(this.firestore, "Trips", documentName);
+    let currentTrips: ITrip[] | undefined;
+    this.store.select(selectUserTrips).subscribe(res => currentTrips = [...res]);
+    if(currentTrips){
+      const newTrips = currentTrips.map((trip, index) => {
+        if(index === tripIndex) {
+          return {...trip, itinerary:
+              {...trip.itinerary, activities:
+                  trip.itinerary.activities.slice(activityIndex + 1)
+              }
+          }
+        }
+        return trip;
+      })
+
+      updateDoc(docRef, "trips", newTrips)
+    }
+  }
+
+
   updateTrip(form: IActivityForm, tripIndex: number, activityIndex: number, documentName: string) {
     const docRef = doc(this.firestore, "Trips", documentName);
     let currentTrips: ITrip[] | undefined;

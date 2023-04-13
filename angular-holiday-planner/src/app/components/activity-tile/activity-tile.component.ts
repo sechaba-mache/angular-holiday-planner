@@ -29,7 +29,8 @@ export class ActivityTileComponent {
   }
 
   deleteActivity(activityIndex: number, tripIndex: number) {
-
+    tripIndex--;
+    this.database.deleteTripActivity(tripIndex, activityIndex, String(this.auth.user?.user.uid));
   }
 
   editActivity() {
