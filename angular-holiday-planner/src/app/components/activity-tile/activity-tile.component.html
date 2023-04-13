@@ -1,4 +1,4 @@
-<div class="flex flex-wrap pt-20">
+<div class="flex flex-wrap pt-20" *ngIf="tripIndex && activities$">
   <ng-container *ngFor="let activity of (activities$ | async)?.itinerary?.activities; index as i">
     <div class="grid grid-cols-activityColumns grid-rows-[3rem] w-screen text-center items-center bg-gray-300 rounded-xl m-2 shadow-md shadow-gray-400">
       <div *ngIf="activity.travel; else flight" class="cols-[1/2] rows-[1/2] w-6 h-6 rounded-full border-[1px] flex justify-center items-center justify-self-center self-center border-blue-500 bg-blue-500">
@@ -6,13 +6,20 @@
       </div>
       <p class="col-[2/3] row-[1/2]">{{activity.activityName}}</p>
       <p class="col-[3/4] row-[1/2]">{{activity.endLocation}}</p>
-      <p class="col-[4/5] row-[1/2]">{{activity.startTime}}</p>
+      <p class="col-[4/5] row-[1/2]">{{activity.startDayTime}}</p>
       <p class="col-[5/6] row-[1/2]">{{activity.cost}}{{activity.currency}}</p>
-      <span (click)="editActivity(i)" class="col-[6/7] row-[1/2] hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
-      <span (click)="deleteActivity(i)" class="col-[7/8] row-[1/2] hover:text-red-600" nz-icon nzType="delete" nzTheme="outline"></span>
+      <span (click)="editActivity()" class="col-[6/7] row-[1/2] hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
+      <span (click)="deleteActivity(i, tripIndex)" class="col-[7/8] row-[1/2] hover:text-red-600" nz-icon nzType="delete" nzTheme="outline"></span>
     </div>
+    <ng-container *ngIf="showActivityForm">
+      <div class="fixed mr-auto ml-auto left-0 right-0 w-fit top-32">
+        <app-activity-form [formData]="activity"  (submission)="editActivity()" (activityOutputForm)="getActivityForm($event, tripIndex, i)"></app-activity-form>
+      </div>
+    </ng-container>
   </ng-container>
 </div>
+
+
 
 <ng-template #flight >
   <div class="w-6 h-6 rounded-full border-[1px] border-black flex justify-center items-center justify-self-center self-center">
