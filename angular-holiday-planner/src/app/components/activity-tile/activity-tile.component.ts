@@ -18,6 +18,7 @@ export class ActivityTileComponent {
 
   activities$: Observable<ITrip | undefined> | undefined;
   tripIndex: number | undefined;
+  selectedTrip: number | undefined;
   showActivityForm = false;
 
   constructor(private store: Store, private router: ActivatedRoute, private database: DatabaseService, private auth: AuthService) {
@@ -33,12 +34,17 @@ export class ActivityTileComponent {
     this.database.deleteTripActivity(tripIndex, activityIndex, String(this.auth.user?.user.uid));
   }
 
-  editActivity() {
+  showTheActivityForm() {
     this.showActivityForm = !this.showActivityForm;
   }
 
-  getActivityForm(event: IActivityForm, tripIndex: number, activityIndex: number) {
+  editActivity(event: IActivityForm, tripIndex: number, activityIndex: number) {
     tripIndex--;
     this.database.updateTrip(event, tripIndex, activityIndex, String(this.auth.user?.user.uid));
+  }
+
+  createActivity(event: IActivityForm, tripIndex: number) {
+    tripIndex--;
+    this.database.addActivity(event, tripIndex, String(this.auth.user?.user.uid));
   }
 }
