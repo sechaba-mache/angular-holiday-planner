@@ -47,4 +47,6 @@ export class ActivityTileComponent {
     tripIndex--;
     this.database.addActivity(event, tripIndex, String(this.auth.user?.user.uid));
   }
+
+  protected readonly Object = Object;
 }

@@ -35,6 +35,7 @@ import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import { AddTripComponent } from './pages/add-trip/add-trip.component';
 import { TripFormComponent } from './forms/trip-form/trip-form.component';
 import { ActivityTileComponent } from './components/activity-tile/activity-tile.component';
+import { DatePipePipe } from './pipes/date-pipe.pipe';
 
 registerLocaleData(en);
 
@@ -51,6 +52,7 @@ registerLocaleData(en);
     AddTripComponent,
     TripFormComponent,
     ActivityTileComponent,
+    DatePipePipe,
 
   ],
   imports: [

@@ -22,8 +22,8 @@ export class ActivityFormComponent implements OnChanges {
       activityName: this.formData?.activityName ?? "",
       description: this.formData?.description ?? "",
       notes: this.formData?.notes ?? "",
-      startDayTime: this.formData?.startDayTime ?? 0,
-      endDayTime: this.formData?.endDayTime ?? 0,
+      startDayTime: new Date(Date.now()),
+      endDayTime: new Date(Date.now()),
       cost: this.formData?.cost ?? 0,
       startLocation: this.formData?.startLocation ?? "",
       endLocation: this.formData?.endLocation ?? ""
@@ -45,8 +45,8 @@ export class ActivityFormComponent implements OnChanges {
     activityName: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     notes: new FormControl(''),
-    startDayTime: new FormControl(0),
-    endDayTime: new FormControl(0),
+    startDayTime: new FormControl(new Date(Date.now())),
+    endDayTime: new FormControl(new Date(Date.now())),
     cost: new FormControl(0, [Validators.pattern("[0-9]+")]),
     startLocation: new FormControl(''),
     endLocation: new FormControl('')

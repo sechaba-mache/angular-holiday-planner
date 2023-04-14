@@ -17,9 +17,9 @@ export interface IActivity {
   currency: string,
   description: string,
   endLocation: string,
-  endDayTime: number,
+  endDayTime: Date,
   notes: string,
   startLocation: string,
-  startDayTime: number,
+  startDayTime: Date,
   travel: boolean,
 }
