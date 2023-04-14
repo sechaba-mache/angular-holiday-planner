@@ -40,7 +40,7 @@ export class ActivityTileComponent {
 
   editActivity(event: IActivityForm, tripIndex: number, activityIndex: number) {
     tripIndex--;
-    this.database.updateTrip(event, tripIndex, activityIndex, String(this.auth.user?.user.uid));
+    this.database.upsertTrip(event, tripIndex, activityIndex, String(this.auth.user?.user.uid));
   }
 
   createActivity(event: IActivityForm, tripIndex: number) {

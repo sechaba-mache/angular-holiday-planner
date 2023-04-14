@@ -1,15 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {tap} from "rxjs/operators";
 import {ITrip} from "../../models/trips";
 import {selectUserTrips} from "../../store/selectors/firestore.selectors";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
+import {DatabaseService} from "../../services/database/database.service";
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-trip-tile',
   templateUrl: './trip-tile.component.html',
-  styleUrls: ['./trip-tile.component.scss']
+  styleUrls: ['./trip-tile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TripTileComponent implements OnInit{
 
@@ -18,7 +21,7 @@ export class TripTileComponent implements OnInit{
   showForm = false;
   dropDown = false;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(private store: Store, private router: Router, private database: DatabaseService, private auth: AuthService) {}
 
   displayForm() {
     this.showForm = true;
@@ -39,5 +42,13 @@ export class TripTileComponent implements OnInit{
         }
       )
     )
+  }
+
+  deleteTrip(tripIndex: number) {
+    this.database.deleteTrip(tripIndex, String(this.auth.user?.user.uid));
+  }
+
+  showTripForm() {
+
   }
 }

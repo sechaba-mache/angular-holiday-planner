@@ -19,7 +19,7 @@ export class DatabaseService {
     const docRef = doc(this.firestore, "Trips", documentName);
 
     return from(getDoc(docRef)).pipe(
-      switchMap(async (trip) => { console.log(trip.data()?.["trips"]); return trip.data()?.['trips'] as ITrip[] })
+      switchMap(async (trip) => { return trip.data()?.['trips'] as ITrip[] })
     )
   }
 
@@ -32,7 +32,7 @@ export class DatabaseService {
         if(index === tripIndex) {
           return {...trip, itinerary:
               {...trip.itinerary, activities:
-                  trip.itinerary.activities.slice(activityIndex + 1)
+                  [...trip.itinerary.activities.slice(0, activityIndex), ...trip.itinerary.activities.slice(activityIndex + 1, trip.itinerary.activities.length)]
               }
           }
         }
@@ -44,11 +44,10 @@ export class DatabaseService {
   }
 
 
-  updateTrip(form: IActivityForm, tripIndex: number, activityIndex: number, documentName: string) {
+  upsertTrip(form: IActivityForm, tripIndex: number, activityIndex: number, documentName: string) {
     const docRef = doc(this.firestore, "Trips", documentName);
     let currentTrips: ITrip[] | undefined;
     this.store.select(selectUserTrips).subscribe(res => currentTrips = [...res]);
-    console.log(tripIndex, currentTrips)
     if (currentTrips) {
 
       const newTrips = currentTrips.map((trip, index) => {
@@ -100,6 +99,16 @@ export class DatabaseService {
         return trip;
       })
 
+      updateDoc(docRef, "trips", newTrips);
+    }
+  }
+
+  deleteTrip(tripIndex: number, documentName: string) {
+    const docRef = doc(this.firestore, "Trips", documentName);
+    let currentTrips: ITrip[] | undefined;
+    this.store.select(selectUserTrips).subscribe(res => currentTrips = res);
+    if(currentTrips){
+      const newTrips = [...currentTrips.slice(0, tripIndex), ...currentTrips.slice(tripIndex + 1, currentTrips.length)]
       updateDoc(docRef, "trips", newTrips);
     }
   }
