@@ -4,7 +4,7 @@ import { IActivity, ITrip } from "../../models/trips";
 import { from, switchMap } from "rxjs";
 import { Store } from "@ngrx/store";
 import { selectUserTrips } from "../../store/selectors/firestore.selectors";
-import { IActivityForm } from "../../models/forms";
+import {IActivityForm, ITripForm} from "../../models/forms";
 
 
 @Injectable({
@@ -109,6 +109,30 @@ export class DatabaseService {
     this.store.select(selectUserTrips).subscribe(res => currentTrips = res);
     if(currentTrips){
       const newTrips = [...currentTrips.slice(0, tripIndex), ...currentTrips.slice(tripIndex + 1, currentTrips.length)]
+      updateDoc(docRef, "trips", newTrips);
+    }
+  }
+
+  updateTrip(event: ITripForm, tripIndex: number, documentName: string) {
+    const docRef = doc(this.firestore, "Trips", documentName);
+    let currentTrips: ITrip[] | undefined;
+    this.store.select(selectUserTrips).subscribe(res => currentTrips = res);
+    if(currentTrips) {
+      const newTrips = currentTrips.map((trip, index) => {
+        if(index === tripIndex){
+          return {...trip,
+            tripName: event.tripName,
+            description: event.description,
+            itinerary: {
+              ...trip.itinerary,
+              itineraryName: event.itineraryName,
+              description: event.itineraryDescription
+            }
+          }
+        }
+        return trip;
+      })
+
       updateDoc(docRef, "trips", newTrips);
     }
   }

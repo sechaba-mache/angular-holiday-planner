@@ -7,7 +7,7 @@ export interface ITrip {
 
 export interface IItinerary {
   activities: IActivity[],
-  description?: string,
+  description: string,
   itineraryName: string
 }
 

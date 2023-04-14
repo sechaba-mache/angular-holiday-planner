@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {DatabaseService} from "../../services/database/database.service";
 import {AuthService} from "../../services/auth/auth.service";
+import {ITripForm} from "../../models/forms";
 
 @Component({
   selector: 'app-trip-tile',
@@ -19,16 +20,18 @@ export class TripTileComponent implements OnInit{
   trips$: Observable<ITrip[]> | undefined;
   rowCount = 1;
   showForm = false;
-  dropDown = false;
+  tripIndex: number | undefined;
 
   constructor(private store: Store, private router: Router, private database: DatabaseService, private auth: AuthService) {}
 
-  displayForm() {
-    this.showForm = true;
-  }
-
-  showDropDown() {
-    this.dropDown = !this.dropDown;
+  displayForm(index: number) {
+    this.showForm = !this.showForm;
+    if(this.showForm){
+      this.tripIndex = index
+    }
+    else {
+      this.tripIndex = undefined;
+    }
   }
 
   navigateToEdit(tripId: string) {
@@ -48,7 +51,7 @@ export class TripTileComponent implements OnInit{
     this.database.deleteTrip(tripIndex, String(this.auth.user?.user.uid));
   }
 
-  showTripForm() {
-
+  editForm(event: ITripForm, tripIndex: number) {
+    this.database.updateTrip(event, tripIndex, String(this.auth.user?.user.uid));
   }
 }

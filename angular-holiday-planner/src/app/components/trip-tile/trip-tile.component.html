@@ -14,9 +14,18 @@
       <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities.length}}</p>
       <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities[0].cost}}</p>
       <div [class]="'col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] flex justify-center items-center gap-4 border-b-2 border-b-gray-500'">
-        <span (click)="showTripForm()" class="hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
+        <span (click)="displayForm(i)" class="hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
         <span (click)="deleteTrip(i)" class="hover:text-red-600" nz-icon nzType="delete" nzTheme="outline"></span>
       </div>
+      <ng-container *ngIf="showForm && (i === tripIndex)">
+        <app-trip-form [formData]="{
+            tripName: trip.tripName,
+            description: trip.description,
+            itineraryName: trip.itinerary.itineraryName,
+            itineraryDescription: trip.itinerary.description
+          }"
+          (tripOutputForm)="editForm($event, i)" (submission)="displayForm(i)"/>
+      </ng-container>
     </ng-container>
 
     <ng-template #noEvents>
@@ -28,3 +37,5 @@
   </ng-container>
 
 </div>
+
+
