@@ -5,6 +5,7 @@ import { from, switchMap } from "rxjs";
 import { Store } from "@ngrx/store";
 import { selectUserTrips } from "../../store/selectors/firestore.selectors";
 import {IActivityForm, ITripForm} from "../../models/forms";
+import {loadFirestores} from "../../store/actions/firestore.actions";
 
 
 @Injectable({
@@ -39,12 +40,12 @@ export class DatabaseService {
         return trip;
       })
 
-      updateDoc(docRef, "trips", newTrips)
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
     }
   }
 
 
-  upsertTrip(form: IActivityForm, tripIndex: number, activityIndex: number, documentName: string) {
+  upsertTripActivity(form: IActivityForm, tripIndex: number, activityIndex: number, documentName: string) {
     const docRef = doc(this.firestore, "Trips", documentName);
     let currentTrips: ITrip[] | undefined;
     this.store.select(selectUserTrips).subscribe(res => currentTrips = [...res]);
@@ -68,7 +69,7 @@ export class DatabaseService {
         return trip
       })
 
-      updateDoc(docRef, "trips", newTrips)
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
     }
   }
 
@@ -79,11 +80,11 @@ export class DatabaseService {
     if (currentTrips) {
       trip.tripID = String(currentTrips.length + 1)
       const newTrips: ITrip[] = [...currentTrips, trip];
-      updateDoc(docRef, "trips", newTrips)
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
     }
     else {
       trip.tripID = String(0)
-      setDoc(docRef, { trips: [trip] })
+      setDoc(docRef, { trips: [trip] }).then(() => this.store.dispatch(loadFirestores()));
     }
   }
 
@@ -99,7 +100,7 @@ export class DatabaseService {
         return trip;
       })
 
-      updateDoc(docRef, "trips", newTrips);
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
     }
   }
 
@@ -109,7 +110,7 @@ export class DatabaseService {
     this.store.select(selectUserTrips).subscribe(res => currentTrips = res);
     if(currentTrips){
       const newTrips = [...currentTrips.slice(0, tripIndex), ...currentTrips.slice(tripIndex + 1, currentTrips.length)]
-      updateDoc(docRef, "trips", newTrips);
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
     }
   }
 
@@ -133,7 +134,7 @@ export class DatabaseService {
         return trip;
       })
 
-      updateDoc(docRef, "trips", newTrips);
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
     }
   }
 }
