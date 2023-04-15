@@ -42,6 +42,7 @@ export class ActivityTileComponent {
 
   createActivity(event: IActivityForm, tripIndex: number) {
     tripIndex--;
+    if(event.currency === "Select Currency") event.currency = "ZAR"
     this.database.addActivity(event, tripIndex, String(this.auth.user?.user.uid));
   }
 
