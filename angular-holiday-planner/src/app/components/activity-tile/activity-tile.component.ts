@@ -18,7 +18,9 @@ export class ActivityTileComponent {
 
   activities$: Observable<ITrip | undefined> | undefined;
   tripIndex: number | undefined;
-  showActivityForm = false;
+  selectedTrip: number | undefined;
+  showUpsertForm = false;
+  showAddForm = false;
 
   constructor(private store: Store, private router: ActivatedRoute, private database: DatabaseService, private auth: AuthService) {
     this.activities$ = store.select(selectUserTrips).pipe(
@@ -33,12 +35,25 @@ export class ActivityTileComponent {
     this.database.deleteTripActivity(tripIndex, activityIndex, String(this.auth.user?.user.uid));
   }
 
-  editActivity() {
-    this.showActivityForm = !this.showActivityForm;
+  editActivity(event: IActivityForm, tripIndex: number, activityIndex: number) {
+    tripIndex--;
+    this.database.upsertTripActivity(event, tripIndex, activityIndex, String(this.auth.user?.user.uid));
   }
 
-  getActivityForm(event: IActivityForm, tripIndex: number, activityIndex: number) {
+  createActivity(event: IActivityForm, tripIndex: number) {
     tripIndex--;
-    this.database.updateTrip(event, tripIndex, activityIndex, String(this.auth.user?.user.uid));
+    this.database.addActivity(event, tripIndex, String(this.auth.user?.user.uid));
+  }
+
+  protected readonly Object = Object;
+
+  flipAddForm() {
+    this.showAddForm = !this.showAddForm;
+    this.showUpsertForm = false;
+  }
+
+  flipUpsertForm() {
+    this.showUpsertForm = !this.showUpsertForm;
+    this.showAddForm = false;
   }
 }

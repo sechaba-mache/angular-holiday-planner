@@ -3,6 +3,7 @@ import {IActivityForm, ITripForm} from "../../models/forms";
 import {DatabaseService} from "../../services/database/database.service";
 import {ITrip} from "../../models/trips";
 import {AuthService} from "../../services/auth/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-trip',
@@ -14,7 +15,7 @@ export class AddTripComponent{
   tripForm: ITripForm | undefined
   activityForm: IActivityForm | undefined
 
-  constructor(private database: DatabaseService, private auth: AuthService) {}
+  constructor(private database: DatabaseService, private auth: AuthService, private router: Router) {}
   getTripForm(event: ITripForm) {
     this.tripForm = event
   }
@@ -34,10 +35,10 @@ export class AddTripComponent{
           currency: this.activityForm?.currency as string,
           description: this.activityForm?.description as string,
           endLocation: this.activityForm?.endLocation as string,
-          endDayTime: Number(this.activityForm?.endDayTime),
+          endDayTime: new Date(Number(this.activityForm?.endDayTime)),
           notes: this.activityForm?.notes as string,
           startLocation: this.activityForm?.startLocation as string,
-          startDayTime: Number(this.activityForm?.startDayTime),
+          startDayTime: new Date(Number(this.activityForm?.startDayTime)),
           travel: this.activityForm?.travel as boolean,
         }],
         description: this.tripForm?.itineraryDescription as string,
@@ -47,6 +48,9 @@ export class AddTripComponent{
       tripName: this.tripForm?.tripName as string
     };
 
-    if(this.auth.user) this.database.addTrip(trip, this.auth.user?.user.uid)
+    if(this.auth.user) {
+      this.database.addTrip(trip, this.auth.user?.user.uid)
+      this.router.navigate(["../../home/calendar"])
+    }
   }
 }

@@ -3,17 +3,29 @@
   <p class="col-[2/3] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-600">Name</p>
   <p class="col-[3/4] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-600">Events</p>
   <p class="col-[4/5] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-600">Cost</p>
-  <p class="col-[5/6] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-600">Something</p>
+  <p class="col-[5/6] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-600">Edit/Delete</p>
   <ng-container *ngFor="let trip of (trips$ | async); index as i">
     <div (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[1/2] row-['+ (i+2) +'/'+ (i+3) +'] border-b-2 border-b-gray-500 flex justify-center items-center'">
       <p class="flex h-2 w-2 bg-green-500 rounded-full"></p>
     </div>
-    <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[2/3] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.tripName}}</p>
+    <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[2/3] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.tripName.slice(0, 6)}}</p>
 
     <ng-container *ngIf="trip.itinerary.activities.length > 0; else noEvents">
       <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities.length}}</p>
       <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities[0].cost}}</p>
-      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities[0].cost}}</p>
+      <div [class]="'col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] flex justify-center items-center gap-4 border-b-2 border-b-gray-500'">
+        <span (click)="displayForm(i)" class="hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
+        <span (click)="deleteTrip(i)" class="hover:text-red-600" nz-icon nzType="delete" nzTheme="outline"></span>
+      </div>
+      <ng-container *ngIf="showForm && (i === tripIndex)">
+        <app-trip-form [formData]="{
+            tripName: trip.tripName,
+            description: trip.description,
+            itineraryName: trip.itinerary.itineraryName,
+            itineraryDescription: trip.itinerary.description
+          }"
+          (tripOutputForm)="editForm($event, i)" (submission)="displayForm(i)"/>
+      </ng-container>
     </ng-container>
 
     <ng-template #noEvents>

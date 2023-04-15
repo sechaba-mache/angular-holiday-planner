@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ITripForm} from "../../models/forms";
 
@@ -7,9 +7,21 @@ import {ITripForm} from "../../models/forms";
   templateUrl: './trip-form.component.html',
   styleUrls: ['./trip-form.component.scss']
 })
-export class TripFormComponent {
+export class TripFormComponent implements OnChanges{
 
+  @Input() formData: ITripForm |undefined;
   @Output() tripOutputForm = new EventEmitter<ITripForm>();
+  @Output() submission = new EventEmitter<MouseEvent>()
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.formData = changes?.['formData'].currentValue;
+    this.tripForm.setValue({
+      tripName: this.formData?.tripName ?? "",
+      description: this.formData?.description ?? "",
+      itineraryName: this.formData?.itineraryName ?? "",
+      itineraryDescription: this.formData?.itineraryDescription ?? ""
+    })
+  }
 
   tripForm = new FormGroup({
     tripName: new FormControl('', [Validators.required]),
@@ -28,5 +40,6 @@ export class TripFormComponent {
 
   submitTripForm() {
     this.tripOutputForm.emit(this.tripForm.value as ITripForm);
+    this.submission.emit();
   }
 }
