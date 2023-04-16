@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IUser} from "../../models/user";
 import {catchError, first, switchMap} from "rxjs";
-import { UserCredential } from '@angular/fire/auth';
+import {UserCredential} from '@angular/fire/auth';
 import {fromPromise} from "rxjs/internal/observable/innerFrom";
 import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
@@ -42,7 +42,8 @@ export class RegisterComponent {
     ).subscribe(user => {
       //If error stay on same route and ask user to resubmit else set relevant data and navigate to home route
       if(user !== "error"){
-        this.auth.user = user as UserCredential;
+        const userCredentials = user as UserCredential
+        this.auth.user = userCredentials.user;
         this.auth.loggedIn = true
       }
 

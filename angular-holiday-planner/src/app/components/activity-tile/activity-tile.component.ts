@@ -33,18 +33,18 @@ export class ActivityTileComponent {
 
   deleteActivity(activityIndex: number, tripIndex: number) {
     tripIndex--;
-    this.database.deleteTripActivity(tripIndex, activityIndex, String(this.auth.user?.user.uid));
+    this.database.deleteTripActivity(tripIndex, activityIndex, String(this.auth.user?.uid));
   }
 
   editActivity(event: IActivityForm, tripIndex: number, activityIndex: number) {
     tripIndex--;
     console.log(activityIndex)
-    this.database.upsertTripActivity(event, tripIndex, activityIndex, String(this.auth.user?.user.uid));
+    this.database.upsertTripActivity(event, tripIndex, activityIndex, String(this.auth.user?.uid));
   }
 
   createActivity(event: IActivityForm, tripIndex: number) {
     tripIndex--;
-    this.database.addActivity(event, tripIndex, String(this.auth.user?.user.uid));
+    this.database.addActivity(event, tripIndex, String(this.auth.user?.uid));
   }
 
   protected readonly Object = Object;
