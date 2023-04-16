@@ -6,12 +6,13 @@ import {NavComponent} from "./components/nav/nav.component";
 import {HomePageComponent} from "./pages/home-page/home-page.component";
 import {AddTripComponent} from "./pages/add-trip/add-trip.component";
 import {ActivityTileComponent} from "./components/activity-tile/activity-tile.component";
+import {LoginGuardGuard} from "./guards/login-guard.guard";
 
 const routes: Routes = [
   {
     path: "",
     redirectTo: "login",
-    pathMatch: "full"
+    pathMatch: "full",
   },
   {
     path: "login",
@@ -19,11 +20,12 @@ const routes: Routes = [
   },
   {
     path: "register",
-    component: RegisterComponent
+    component: RegisterComponent,
   },
   {
     path: "home",
     component: NavComponent,
+    canActivate: [LoginGuardGuard],
     children: [
       {
         path: "calendar",
