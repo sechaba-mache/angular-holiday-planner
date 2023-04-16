@@ -1,4 +1,6 @@
-<div class="flex flex-wrap pt-20" *ngIf="tripIndex && activities$">
+<h1 class="pr-4 flex justify-center pt-20 w-screen font-extrabold text-2xl">Activities</h1>
+
+<div class="flex flex-wrap pt-2" *ngIf="tripIndex && activities$">
   <ng-container *ngFor="let activity of (activities$ | async)?.itinerary?.activities; index as i">
     <div class="grid grid-cols-activityColumns grid-rows-[3rem] w-screen text-center items-center bg-gray-300 rounded-xl m-2 shadow-md shadow-gray-400">
       <div *ngIf="activity.travel; else flight" class="cols-[1/2] rows-[1/2] w-6 h-6 rounded-full border-[1px] flex justify-center items-center justify-self-center self-center border-blue-500 bg-blue-500">
