@@ -8,12 +8,12 @@
       <p class="col-[3/4] row-[1/2]">{{activity.endLocation}}</p>
       <p class="col-[4/5] row-[1/2]">{{activity.startDayTime.toString() | lowercase | datePipe}}</p>
       <p class="col-[5/6] row-[1/2]">{{activity.cost}}{{activity.currency}}</p>
-      <span (click)="flipUpsertForm()" class="col-[6/7] row-[1/2] hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
+      <span (click)="flipUpsertForm(i)" class="col-[6/7] row-[1/2] hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
       <span (click)="deleteActivity(i, tripIndex)" class="col-[7/8] row-[1/2] hover:text-red-600" nz-icon nzType="delete" nzTheme="outline"></span>
     </div>
-    <ng-container *ngIf="showUpsertForm">
+    <ng-container *ngIf="showUpsertForm && (activityIndex || activityIndex === 0)">
       <div class="fixed mr-auto ml-auto left-0 right-0 w-fit top-32">
-        <app-activity-form [formData]="activity"  (submission)="flipUpsertForm()" (activityOutputForm)="editActivity($event, tripIndex, i)"></app-activity-form>
+        <app-activity-form [formData]="selectedActivity"  (submission)="flipUpsertForm(i)" (activityOutputForm)="editActivity($event, tripIndex, activityIndex)"></app-activity-form>
       </div>
     </ng-container>
   </ng-container>

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ITrip} from "../../models/trips";
+import {IActivity, ITrip} from "../../models/trips";
 import {Store} from "@ngrx/store";
 import {selectUserTrips} from "../../store/selectors/firestore.selectors";
 import {switchMap} from "rxjs/operators";
@@ -18,7 +18,8 @@ export class ActivityTileComponent {
 
   activities$: Observable<ITrip | undefined> | undefined;
   tripIndex: number | undefined;
-  selectedTrip: number | undefined;
+  activityIndex: number | undefined;
+  selectedActivity: IActivity | undefined;
   showUpsertForm = false;
   showAddForm = false;
 
@@ -37,6 +38,7 @@ export class ActivityTileComponent {
 
   editActivity(event: IActivityForm, tripIndex: number, activityIndex: number) {
     tripIndex--;
+    console.log(activityIndex)
     this.database.upsertTripActivity(event, tripIndex, activityIndex, String(this.auth.user?.user.uid));
   }
 
@@ -52,8 +54,19 @@ export class ActivityTileComponent {
     this.showUpsertForm = false;
   }
 
-  flipUpsertForm() {
+  flipUpsertForm(activityIndex: number) {
     this.showUpsertForm = !this.showUpsertForm;
+    if(this.showUpsertForm) {
+      this.activities$?.pipe(first()).subscribe(trip => {
+        if(trip) this.selectedActivity = trip.itinerary.activities[activityIndex]
+      });
+
+      this.activityIndex = activityIndex;
+    }
+    else {
+      this.activityIndex = undefined;
+      this.selectedActivity = undefined;
+    }
     this.showAddForm = false;
   }
 }
