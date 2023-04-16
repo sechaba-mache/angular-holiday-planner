@@ -36,6 +36,7 @@ import { AddTripComponent } from './pages/add-trip/add-trip.component';
 import { TripFormComponent } from './forms/trip-form/trip-form.component';
 import { ActivityTileComponent } from './components/activity-tile/activity-tile.component';
 import { DatePipePipe } from './pipes/date-pipe.pipe';
+import {NzBadgeModule} from "ng-zorro-antd/badge";
 
 registerLocaleData(en);
 
@@ -74,7 +75,8 @@ registerLocaleData(en);
     StoreModule.forFeature(fromFirestore.firestoreFeatureKey, fromFirestore.reducer),
     EffectsModule.forFeature([FirestoreEffects]),
     NzDropDownModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NzBadgeModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

@@ -1,2 +1,20 @@
-<nz-calendar class="calendar" (nzSelectChange)="changed($event)" [(ngModel)]="date" [(nzMode)]="mode"
-             (nzPanelChange)="panelChange($event)" />
+<nz-calendar>
+  <ul *nzDateCell="let date" class="events">
+    <ng-container [ngSwitch]="date.getDate()">
+
+      <ng-container *ngFor="let trip of (trips$ | async)">
+
+        <ng-container *ngSwitchCase="(trip.itinerary.activities[0].startDayTime.toString() | lowercase | datePipe).split(' ')[2]">
+          <nz-badge [nzStatus]="getStatus(trip.itinerary.activities[0])" [nzText]="trip.itinerary.activities[0].activityName"></nz-badge>
+        </ng-container>
+      </ng-container>
+
+    </ng-container>
+  </ul>
+  <ng-container *nzMonthCell="let month">
+    <div *ngIf="getMonthData(month) as monthData" class="notes-month">
+      <section>{{ monthData }}</section>
+      <span>Backlog number</span>
+    </div>
+  </ng-container>
+</nz-calendar>

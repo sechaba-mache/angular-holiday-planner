@@ -6,7 +6,7 @@
       </div>
       <p class="col-[2/3] row-[1/2]">{{activity.activityName}}</p>
       <p class="col-[3/4] row-[1/2]">{{activity.endLocation}}</p>
-      <p class="col-[4/5] row-[1/2]">{{activity.startDayTime.toString() | datePipe}}</p>
+      <p class="col-[4/5] row-[1/2]">{{activity.startDayTime.toString() | lowercase | datePipe}}</p>
       <p class="col-[5/6] row-[1/2]">{{activity.cost}}{{activity.currency}}</p>
       <span (click)="flipUpsertForm()" class="col-[6/7] row-[1/2] hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
       <span (click)="deleteActivity(i, tripIndex)" class="col-[7/8] row-[1/2] hover:text-red-600" nz-icon nzType="delete" nzTheme="outline"></span>
