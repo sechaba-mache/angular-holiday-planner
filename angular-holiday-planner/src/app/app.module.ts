@@ -11,7 +11,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {NgOptimizedImage, registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -76,6 +76,7 @@ registerLocaleData(en);
     EffectsModule.forFeature([FirestoreEffects]),
     NzDropDownModule,
     NzDatePickerModule,
+    NgOptimizedImage,
     NzBadgeModule
   ],
   providers: [

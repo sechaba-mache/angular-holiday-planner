@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {DatabaseService} from "../../services/database/database.service";
 import {AuthService} from "../../services/auth/auth.service";
 import {ITripForm} from "../../models/forms";
+import {CurrencyConversionService} from "../../services/currencyConversion/currency-conversion.service";
 
 @Component({
   selector: 'app-trip-tile',
@@ -22,7 +23,7 @@ export class TripTileComponent implements OnInit{
   showForm = false;
   tripIndex: number | undefined;
 
-  constructor(private store: Store, private router: Router, private database: DatabaseService, private auth: AuthService) {}
+  constructor(private store: Store, private router: Router, private database: DatabaseService, private auth: AuthService, protected currencyConverter: CurrencyConversionService) {}
 
   displayForm(index: number) {
     this.showForm = !this.showForm;

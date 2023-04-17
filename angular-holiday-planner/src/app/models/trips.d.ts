@@ -2,7 +2,8 @@ export interface ITrip {
   tripID: string,
   tripName: string,
   description: string,
-  itinerary: IItinerary
+  itinerary: IItinerary,
+  tripCost?: number
 }
 
 export interface IItinerary {
