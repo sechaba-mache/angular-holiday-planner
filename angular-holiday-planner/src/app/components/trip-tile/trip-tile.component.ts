@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {DatabaseService} from "../../services/database/database.service";
 import {AuthService} from "../../services/auth/auth.service";
 import {ITripForm} from "../../models/forms";
+import {CurrencyConversionService} from "../../services/conversion/currency-conversion.service";
 
 @Component({
   selector: 'app-trip-tile',
@@ -15,14 +16,14 @@ import {ITripForm} from "../../models/forms";
   styleUrls: ['./trip-tile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TripTileComponent implements OnInit{
+export class TripTileComponent implements OnInit {
 
   trips$: Observable<ITrip[]> | undefined;
   rowCount = 1;
   showForm = false;
   tripIndex: number | undefined;
 
-  constructor(private store: Store, private router: Router, private database: DatabaseService, private auth: AuthService) {}
+  constructor(private store: Store, private router: Router, private database: DatabaseService, private auth: AuthService, protected currencyConverter: CurrencyConversionService) {}
 
   displayForm(index: number) {
     this.showForm = !this.showForm;
@@ -41,7 +42,9 @@ export class TripTileComponent implements OnInit{
   ngOnInit(): void {
     this.trips$ = this.store.select(selectUserTrips).pipe(
       tap(trips =>{
-          if(trips !== undefined && trips.length > 0) this.rowCount = trips.length + 1
+          if(trips !== undefined && trips.length > 0) {
+            this.rowCount = trips.length + 1
+          }
         }
       )
     )
