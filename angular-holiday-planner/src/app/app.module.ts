@@ -11,7 +11,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
-import { registerLocaleData } from '@angular/common';
+import {NgOptimizedImage, registerLocaleData} from '@angular/common';
 import en from '@angular/common/locales/en';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -36,6 +36,7 @@ import { AddTripComponent } from './pages/add-trip/add-trip.component';
 import { TripFormComponent } from './forms/trip-form/trip-form.component';
 import { ActivityTileComponent } from './components/activity-tile/activity-tile.component';
 import { DatePipePipe } from './pipes/date-pipe.pipe';
+import {NzBadgeModule} from "ng-zorro-antd/badge";
 
 registerLocaleData(en);
 
@@ -74,7 +75,9 @@ registerLocaleData(en);
     StoreModule.forFeature(fromFirestore.firestoreFeatureKey, fromFirestore.reducer),
     EffectsModule.forFeature([FirestoreEffects]),
     NzDropDownModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    NgOptimizedImage,
+    NzBadgeModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

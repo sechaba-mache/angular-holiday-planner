@@ -18,7 +18,7 @@ export class FirestoreEffects {
       switchMap(() => {
         // console.log(this.auth.user)
         if(this.auth.user){
-          return this.database.getUserTripsObs(this.auth.user.user.uid).pipe(
+          return this.database.getUserTripsObs(this.auth.user.uid).pipe(
             map(res => FirestoreActions.loadFirestoresSuccess({trips: res})),
             catchError(err => {
               console.error(err);

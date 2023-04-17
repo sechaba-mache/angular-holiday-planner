@@ -4,6 +4,7 @@ import {Currencies} from "../../models/currencies";
 import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {IActivityForm} from "../../models/forms";
 import {IActivity} from "../../models/trips";
+import {DatePipePipe} from "../../pipes/date-pipe.pipe";
 
 @Component({
   selector: 'app-activity-form',
@@ -16,21 +17,37 @@ export class ActivityFormComponent implements OnChanges {
   @Output() activityOutputForm = new EventEmitter<IActivityForm>();
   @Output() submission = new EventEmitter<MouseEvent>()
 
+  datePipe = new DatePipePipe()
+
   ngOnChanges(changes: SimpleChanges): void {
     this.formData = changes?.['formData'].currentValue;
-    this.activityForm.setValue({
-      activityName: this.formData?.activityName ?? "",
-      description: this.formData?.description ?? "",
-      notes: this.formData?.notes ?? "",
-      startDayTime: new Date(Date.now()),
-      endDayTime: new Date(Date.now()),
-      cost: this.formData?.cost ?? 0,
-      startLocation: this.formData?.startLocation ?? "",
-      endLocation: this.formData?.endLocation ?? ""
-    })
 
-    this.selectedCurrency = this.formData?.currency ?? "Select Currency"
-    this.travel = this.formData?.travel ?? false;
+    if(this.formData){
+      const splitStartDate = this.datePipe.transform(this.formData.startDayTime.toString().toLowerCase()).split("at")
+      const splitEndDate = this.datePipe.transform(this.formData.endDayTime.toString().toLowerCase()).split("at")
+      let startDateSlice = splitStartDate;
+      let endDateSlice = splitEndDate;
+
+      if(splitStartDate.length === 3) startDateSlice = splitStartDate.slice(1)
+      if(splitEndDate.length === 3) endDateSlice = splitEndDate.slice(1)
+
+      const formStartDate = new Date(startDateSlice[0])
+      const formEndDate = new Date(endDateSlice[0])
+
+      this.activityForm.setValue({
+        activityName: this.formData?.activityName ?? "",
+        description: this.formData?.description ?? "",
+        notes: this.formData?.notes ?? "",
+        startDayTime: formStartDate ?? new Date(Date.now()),
+        endDayTime: formEndDate ?? new Date(Date.now()),
+        cost: this.formData?.cost ?? 0,
+        startLocation: this.formData?.startLocation ?? "",
+        endLocation: this.formData?.endLocation ?? ""
+      })
+
+      this.selectedCurrency = this.formData?.currency ?? "Select Currency"
+      this.travel = this.formData?.travel ?? false;
+    }
   }
 
 
