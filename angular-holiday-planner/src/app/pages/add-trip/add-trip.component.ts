@@ -25,7 +25,7 @@ export class AddTripComponent{
   }
 
   submitForm() {
-    console.log("Submitting")
+    if(this.activityForm?.currency === "Select Currency") this.activityForm.currency = "ZAR"
     const trip: ITrip = {
       description: this.tripForm?.description as string,
       itinerary: {
