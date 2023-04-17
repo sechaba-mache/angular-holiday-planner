@@ -25,7 +25,7 @@ export class AddTripComponent{
   }
 
   submitForm() {
-    console.log("Submitting")
+    if(this.activityForm?.currency === "Select Currency") this.activityForm.currency = "ZAR"
     const trip: ITrip = {
       description: this.tripForm?.description as string,
       itinerary: {
@@ -49,7 +49,7 @@ export class AddTripComponent{
     };
 
     if(this.auth.user) {
-      this.database.addTrip(trip, this.auth.user?.user.uid)
+      this.database.addTrip(trip, this.auth.user?.uid)
       this.router.navigate(["../../home/calendar"])
     }
   }

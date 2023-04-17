@@ -4,7 +4,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  UserCredential
+  User,
+  browserSessionPersistence
 } from "@angular/fire/auth";
 import {IUser} from "../../models/user";
 
@@ -13,16 +14,18 @@ import {IUser} from "../../models/user";
 })
 export class AuthService {
 
-  user: UserCredential | null = null;
+  user: User | null | undefined;
   loggedIn = false;
-  constructor(private auth: Auth) { }
+  constructor(private auth: Auth) {
+      this.user = JSON.parse(sessionStorage.getItem("firebase:authUser:AIzaSyDqnu4jzVtNQ1ywyoFsZCskGZd5jvXAGH4:[DEFAULT]") ?? "")
+  }
 
   registerUser(user: IUser){
-    return createUserWithEmailAndPassword(this.auth, user.email, user.password)
+    return this.auth.setPersistence(browserSessionPersistence).then(() => createUserWithEmailAndPassword(this.auth, user.email, user.password))
   }
 
   login(user: IUser){
-    return signInWithEmailAndPassword(this.auth, user.email, user.password).then(res => this.user = res);
+    return this.auth.setPersistence(browserSessionPersistence).then(() => signInWithEmailAndPassword(this.auth, user.email, user.password).then(res => this.user = res.user));
   }
 
   logout() {

@@ -49,10 +49,10 @@ export class TripTileComponent implements OnInit{
   }
 
   deleteTrip(tripIndex: number) {
-    this.database.deleteTrip(tripIndex, String(this.auth.user?.user.uid));
+    this.database.deleteTrip(tripIndex, String(this.auth.user?.uid));
   }
 
   editForm(event: ITripForm, tripIndex: number) {
-    this.database.updateTrip(event, tripIndex, String(this.auth.user?.user.uid));
+    this.database.updateTrip(event, tripIndex, String(this.auth.user?.uid));
   }
 }
