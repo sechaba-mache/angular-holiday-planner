@@ -7,9 +7,14 @@
           <ng-container *ngFor="let trip of (trips$ | async)">
 
             <ng-container *ngIf="trip.itinerary.activities.length > 0">
-              <ng-container *ngSwitchCase="(trip.itinerary.activities[0].startDayTime.toString() | lowercase | datePipe).split(' ')[2]">
-                <nz-badge [nzStatus]="getStatus(trip.itinerary.activities[0])" [nzText]="trip.itinerary.activities[0].activityName"></nz-badge>
+
+              <ng-container *ngFor="let activity of trip.itinerary.activities">
+
+                <ng-container *ngSwitchCase="(activity.startDayTime.toString() | lowercase | datePipe).split(' ')[2]">
+                  <nz-badge [nzStatus]="getStatus(activity)" [nzText]="trip.tripName + ': ' + activity.activityName"></nz-badge>
+                </ng-container>
               </ng-container>
+
             </ng-container>
           </ng-container>
 

@@ -1,6 +1,6 @@
 <div class="h-[48rem] flex-1 p-3 rounded-md shadow-2xl shadow-secondary bg-white">
   <span *ngIf="!router.url.includes('add-trip')" (click)="close()" class="flex justify-end" nz-icon nzType="close" nzTheme="outline"></span>
-  <form [formGroup]="activityForm" class="w-80% flex flex-col ">
+  <form [formGroup]="activityForm" class="w-80% flex flex-col">
 
     <label class=" mt-2 mb-1">Activity Name:</label>
     <input formControlName="activityName" type="text" placeholder="Enter Activity Name" class="pl-3 w-[100%] h-8 rounded-md mt-2 mb-1 border-2 border-gray-300">

@@ -14,10 +14,10 @@ export class NavComponent {
   }
 
   back() {
-    this.router.navigate(["../../home/calendar"])
+    this.router.navigate(["../../home/calendar"]).catch(() => window.alert("An error has occurred"))
   }
 
   logout() {
-    this.auth.logout().then(() => this.router.navigate(["../../login"]));
+    this.auth.logout().then(() => this.router.navigate(["../../login"])).catch(() => window.alert("An error has occurred"));
   }
 }

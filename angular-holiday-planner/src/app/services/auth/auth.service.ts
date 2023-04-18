@@ -21,16 +21,16 @@ export class AuthService {
   }
 
   registerUser(user: IUser){
-    return this.auth.setPersistence(browserSessionPersistence).then(() => createUserWithEmailAndPassword(this.auth, user.email, user.password))
+    return this.auth.setPersistence(browserSessionPersistence).then(() => createUserWithEmailAndPassword(this.auth, user.email, user.password)).catch(() => window.alert("An error has occurred"))
   }
 
   login(user: IUser){
-    return this.auth.setPersistence(browserSessionPersistence).then(() => signInWithEmailAndPassword(this.auth, user.email, user.password).then(res => this.user = res.user));
+    return this.auth.setPersistence(browserSessionPersistence).then(() => signInWithEmailAndPassword(this.auth, user.email, user.password).then(res => this.user = res.user)).catch(() => window.alert("An error has occurred"));
   }
 
   logout() {
     this.loggedIn = false;
     this.user = null;
-    return signOut(this.auth);
+    return signOut(this.auth).catch(() => window.alert("An error has occurred"));
   }
 }
