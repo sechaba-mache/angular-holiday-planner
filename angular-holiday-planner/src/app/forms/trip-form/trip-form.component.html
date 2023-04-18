@@ -12,15 +12,6 @@
       <label class="w-full text-xl font-medium m-3 ">Description:</label>
       <input formControlName="description" type="text" placeholder="Please Enter a Description for the trip" class="w-3/4 h-8 pl-3 rounded-md border-2 border-gray-300">
 
-      <label class="w-full text-xl font-medium m-3  ">Itinerary Name:</label>
-      <input formControlName="itineraryName" type="text" placeholder="Please Enter The Name of Your Itinerary" class="w-3/4 h-8 pl-3 rounded-md border-2 border-gray-300">
-      <ng-container *ngIf="itineraryName?.invalid && (itineraryName?.dirty || itineraryName?.touched);">
-        <ng-container *ngIf="!itineraryName?.errors?.['required']; else notValid" />
-      </ng-container>
-
-      <label class="w-full text-xl font-medium m-3 ">Itinerary Description:</label>
-      <input formControlName="itineraryDescription" type="text" placeholder="Please Enter a Description Your Itinerary" class="w-3/4 h-8 pl-3 rounded-md border-2 border-gray-300">
-
     </form>
 
   </ng-container>
