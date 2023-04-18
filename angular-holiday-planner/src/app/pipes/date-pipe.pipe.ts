@@ -10,7 +10,10 @@ export class DatePipePipe implements PipeTransform {
       const firstSplit = date.split("=")
       const secondSplit = firstSplit[1].split(",")
       const newDate = new Date(Number(secondSplit[0]) * 1000)
-      return newDate.toDateString() + " at " + String(newDate.getHours() + ":" + newDate.getMinutes())
+
+      const hours = newDate.getHours() ? 0 : "00";
+      const minutes = newDate.getMinutes() ? 0 : "00";
+      return newDate.toDateString() + " at " + String(hours + ":" + minutes)
     }
     return date;
   }

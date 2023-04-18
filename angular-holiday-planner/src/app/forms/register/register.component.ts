@@ -49,7 +49,7 @@ export class RegisterComponent {
 
     });
 
-    this.router.navigate(["../home/calendar"])
+    this.router.navigate(["../home/calendar"]).catch(() => window.alert("An error has occurred"))
 
   }
 }

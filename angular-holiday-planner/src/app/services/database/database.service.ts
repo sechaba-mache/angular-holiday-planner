@@ -40,7 +40,7 @@ export class DatabaseService {
         return trip;
       })
 
-      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores())).catch(() => window.alert("An error has occurred"));
     }
   }
 
@@ -69,7 +69,7 @@ export class DatabaseService {
         return trip
       })
 
-      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores())).catch(() => window.alert("An error has occurred"));
     }
   }
 
@@ -80,11 +80,11 @@ export class DatabaseService {
     if (currentTrips) {
       trip.tripID = String(currentTrips.length + 1)
       const newTrips: ITrip[] = [...currentTrips, trip];
-      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores())).catch(() => window.alert("An error has occurred"));
     }
     else {
       trip.tripID = String(0)
-      setDoc(docRef, { trips: [trip] }).then(() => this.store.dispatch(loadFirestores()));
+      setDoc(docRef, { trips: [trip] }).then(() => this.store.dispatch(loadFirestores())).catch(() => window.alert("An error has occurred"));
     }
   }
 
@@ -100,7 +100,7 @@ export class DatabaseService {
         return trip;
       })
 
-      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores())).catch(() => window.alert("An error has occurred"));
     }
   }
 
@@ -110,7 +110,7 @@ export class DatabaseService {
     this.store.select(selectUserTrips).subscribe(res => currentTrips = res);
     if(currentTrips){
       const newTrips = [...currentTrips.slice(0, tripIndex), ...currentTrips.slice(tripIndex + 1, currentTrips.length)]
-      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores())).catch(() => window.alert("An error has occurred"));
     }
   }
 
@@ -134,7 +134,7 @@ export class DatabaseService {
         return trip;
       })
 
-      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores()));
+      updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores())).catch(() => window.alert("An error has occurred"));
     }
   }
 }

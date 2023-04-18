@@ -1,20 +1,32 @@
-<nz-calendar>
-  <ul *nzDateCell="let date" class="events">
-    <ng-container [ngSwitch]="date.getDate()">
+<div class="w-full h-full shadow-2xl shadow-secondary rounded-md">
+  <div class="p-4 ml-auto mr-auto">
+    <nz-calendar>
+      <ul *nzDateCell="let date" class="events">
+        <ng-container [ngSwitch]="date.getDate()">
 
-      <ng-container *ngFor="let trip of (trips$ | async)">
+          <ng-container *ngFor="let trip of (trips$ | async)">
 
-        <ng-container *ngSwitchCase="(trip.itinerary.activities[0].startDayTime.toString() | lowercase | datePipe).split(' ')[2]">
-          <nz-badge [nzStatus]="getStatus(trip.itinerary.activities[0])" [nzText]="trip.itinerary.activities[0].activityName"></nz-badge>
+            <ng-container *ngIf="trip.itinerary.activities.length > 0">
+
+              <ng-container *ngFor="let activity of trip.itinerary.activities">
+
+                <ng-container *ngSwitchCase="(activity.startDayTime.toString() | lowercase | datePipe).split(' ')[2]">
+                  <nz-badge [nzStatus]="getStatus(activity)" [nzText]="trip.tripName + ': ' + activity.activityName"></nz-badge>
+                </ng-container>
+              </ng-container>
+
+            </ng-container>
+          </ng-container>
+
         </ng-container>
+      </ul>
+      <ng-container *nzMonthCell="let month">
+        <div *ngIf="getMonthData(month) as monthData" class="notes-month">
+          <section>{{ monthData }}</section>
+          <span>Backlog number</span>
+        </div>
       </ng-container>
+    </nz-calendar>
 
-    </ng-container>
-  </ul>
-  <ng-container *nzMonthCell="let month">
-    <div *ngIf="getMonthData(month) as monthData" class="notes-month">
-      <section>{{ monthData }}</section>
-      <span>Backlog number</span>
-    </div>
-  </ng-container>
-</nz-calendar>
+  </div>
+</div>
