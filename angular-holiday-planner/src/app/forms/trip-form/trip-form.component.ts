@@ -30,7 +30,7 @@ export class TripFormComponent implements OnChanges{
   tripForm = new FormGroup({
     tripName: new FormControl('', [Validators.required]),
     description: new FormControl(''),
-    itineraryName: new FormControl('', [Validators.required]),
+    itineraryName: new FormControl(''),
     itineraryDescription: new FormControl(''),
   });
 
