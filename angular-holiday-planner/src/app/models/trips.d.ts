@@ -3,7 +3,7 @@ export interface ITrip {
   tripName: string,
   description: string,
   itinerary: IItinerary,
-  tripCost?: number
+  tripCost?: string
 }
 
 export interface IItinerary {

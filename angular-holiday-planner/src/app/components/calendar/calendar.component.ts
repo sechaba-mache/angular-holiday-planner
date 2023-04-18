@@ -29,6 +29,7 @@ export class CalendarComponent {
     const splitDate = this.datePipe.transform(activity.startDayTime.toString().toLowerCase()).split("at")
     const today = new Date(Date.now())
     const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+
     if(splitDate.length === 3){
       const eventDate = new Date(splitDate[1])
       if(eventDate <= nextWeek && eventDate > today){
@@ -43,11 +44,11 @@ export class CalendarComponent {
     }
     else {
       const eventDate = new Date(splitDate[0])
-      if(eventDate > today){
-        return "success"
-      }
-      else if(eventDate >= nextWeek){
+      if(eventDate <= nextWeek && eventDate > today){
         return "warning"
+      }
+      else if(eventDate > today){
+        return "success"
       }
       else {
         return "error"

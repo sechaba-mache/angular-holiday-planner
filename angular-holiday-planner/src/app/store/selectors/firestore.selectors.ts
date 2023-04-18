@@ -1,4 +1,4 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromFirestore from '../reducers/firestore.reducer';
 
 export const selectFirestoreState = createFeatureSelector<fromFirestore.State>(

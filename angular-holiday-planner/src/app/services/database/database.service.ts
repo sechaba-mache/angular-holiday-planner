@@ -6,6 +6,7 @@ import { Store } from "@ngrx/store";
 import { selectUserTrips } from "../../store/selectors/firestore.selectors";
 import {IActivityForm, ITripForm} from "../../models/forms";
 import {loadFirestores} from "../../store/actions/firestore.actions";
+import {CurrencyConversionService} from "../conversion/currency-conversion.service";
 
 
 @Injectable({
@@ -14,13 +15,19 @@ import {loadFirestores} from "../../store/actions/firestore.actions";
 export class DatabaseService {
 
   firestore: Firestore = inject(Firestore);
-  constructor(private store: Store) { }
+  constructor(private store: Store, private currencyConverter: CurrencyConversionService) { }
 
   getUserTripsObs(documentName: string) {
     const docRef = doc(this.firestore, "Trips", documentName);
 
     return from(getDoc(docRef)).pipe(
-      switchMap(async (trip) => { return trip.data()?.['trips'] as ITrip[] })
+      switchMap(async (trip) => {
+        const newTrips = trip.data()?.['trips'] as ITrip[];
+        newTrips.map(trip => {
+          trip.tripCost = this.currencyConverter.convert(trip).toFixed(2)
+        })
+        return newTrips
+      })
     )
   }
 

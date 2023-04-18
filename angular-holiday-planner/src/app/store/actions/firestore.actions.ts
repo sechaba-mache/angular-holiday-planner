@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {IActivity, ITrip} from "../../models/trips";
+import {ITrip} from "../../models/trips";
 
 export const loadFirestores = createAction(
   '[Firestore] Load Firestores'
@@ -15,7 +15,3 @@ export const loadFirestoresFailure = createAction(
   props<{ error: unknown }>()
 );
 
-export const setActivities = createAction(
-  '[Firestore] Load Firestores Success',
-  props<{ activities: IActivity[] }>()
-);
