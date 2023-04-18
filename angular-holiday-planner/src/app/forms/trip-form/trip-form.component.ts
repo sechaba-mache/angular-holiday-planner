@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ITripForm} from "../../models/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-trip-form',
@@ -13,6 +14,8 @@ export class TripFormComponent implements OnChanges{
   @Output() tripOutputForm = new EventEmitter<ITripForm>();
   @Output() submission = new EventEmitter<MouseEvent>()
 
+  constructor(private router: Router) {
+  }
   ngOnChanges(changes: SimpleChanges): void {
     this.formData = changes?.['formData'].currentValue;
     this.tripForm.setValue({
@@ -39,7 +42,13 @@ export class TripFormComponent implements OnChanges{
   }
 
   submitTripForm() {
-    this.tripOutputForm.emit(this.tripForm.value as ITripForm);
-    this.submission.emit();
+    if(this.tripForm.valid){
+      this.tripOutputForm.emit(this.tripForm.value as ITripForm);
+      this.submission.emit();
+    }
+  }
+
+  handleCancel() {
+    this.router.navigate(["../../home/calendar"])
   }
 }

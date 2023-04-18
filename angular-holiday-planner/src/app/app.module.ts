@@ -37,6 +37,11 @@ import { TripFormComponent } from './forms/trip-form/trip-form.component';
 import { ActivityTileComponent } from './components/activity-tile/activity-tile.component';
 import { DatePipePipe } from './pipes/date-pipe.pipe';
 import {NzBadgeModule} from "ng-zorro-antd/badge";
+import {NzModalModule} from "ng-zorro-antd/modal";
+import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzSwitchModule} from "ng-zorro-antd/switch";
+import {NzSegmentedModule} from "ng-zorro-antd/segmented";
+import {NzRadioModule} from "ng-zorro-antd/radio";
 
 registerLocaleData(en);
 
@@ -77,7 +82,12 @@ registerLocaleData(en);
     NzDropDownModule,
     NzDatePickerModule,
     NgOptimizedImage,
-    NzBadgeModule
+    NzBadgeModule,
+    NzModalModule,
+    NzButtonModule,
+    NzSwitchModule,
+    NzSegmentedModule,
+    NzRadioModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

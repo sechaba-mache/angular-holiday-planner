@@ -17,7 +17,7 @@ export class AuthService {
   user: User | null | undefined;
   loggedIn = false;
   constructor(private auth: Auth) {
-      this.user = JSON.parse(sessionStorage.getItem("firebase:authUser:AIzaSyDqnu4jzVtNQ1ywyoFsZCskGZd5jvXAGH4:[DEFAULT]") ?? "")
+      // this.user = JSON.parse(sessionStorage.getItem("firebase:authUser:AIzaSyDqnu4jzVtNQ1ywyoFsZCskGZd5jvXAGH4:[DEFAULT]") ?? "")
   }
 
   registerUser(user: IUser){

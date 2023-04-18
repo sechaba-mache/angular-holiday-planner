@@ -5,6 +5,7 @@ import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
 import {IActivityForm} from "../../models/forms";
 import {IActivity} from "../../models/trips";
 import {DatePipePipe} from "../../pipes/date-pipe.pipe";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-activity-form',
@@ -16,6 +17,10 @@ export class ActivityFormComponent implements OnChanges {
   @Input() formData: IActivity |undefined;
   @Output() activityOutputForm = new EventEmitter<IActivityForm>();
   @Output() submission = new EventEmitter<MouseEvent>()
+  @Output() closeForm = new EventEmitter<MouseEvent>()
+
+  constructor(protected router: Router) {
+  }
 
   datePipe = new DatePipePipe()
 
@@ -42,11 +47,11 @@ export class ActivityFormComponent implements OnChanges {
         endDayTime: formEndDate ?? new Date(Date.now()),
         cost: this.formData?.cost ?? 0,
         startLocation: this.formData?.startLocation ?? "",
-        endLocation: this.formData?.endLocation ?? ""
+        endLocation: this.formData?.endLocation ?? "",
+        travel: this.formData?.travel ?? false,
       })
 
       this.selectedCurrency = this.formData?.currency ?? "Select Currency"
-      this.travel = this.formData?.travel ?? false;
     }
   }
 
@@ -66,11 +71,13 @@ export class ActivityFormComponent implements OnChanges {
     endDayTime: new FormControl(new Date(Date.now())),
     cost: new FormControl(0, [Validators.pattern("[0-9]+")]),
     startLocation: new FormControl(''),
-    endLocation: new FormControl('')
+    endLocation: new FormControl(''),
+    travel: new FormControl(false)
   })
 
   flipTravel() {
     this.travel = !this.travel
+    console.log(this.travel)
   }
 
   setCurrency(currencyIndex: number) {
@@ -107,7 +114,11 @@ export class ActivityFormComponent implements OnChanges {
   }
 
   submitActivityForm(event: MouseEvent) {
-    this.activityOutputForm.emit(({...this.activityForm.value, travel: this.travel, currency: this.selectedCurrency}) as IActivityForm)
+    this.activityOutputForm.emit(({...this.activityForm.value, currency: this.selectedCurrency}) as IActivityForm)
     this.submission.emit(event);
+  }
+
+  close() {
+    this.closeForm.emit();
   }
 }

@@ -1,41 +1,54 @@
-<div [class]="'trips grid grid-cols-tripColumns grid-rows-[repeat('+ rowCount + ', 3rem)]'">
-  <div class="col-[1/2] row-[1/2] border-b-2 border-b-gray-900 bg-gray-500 rounded-tl-md"></div>
-  <p class="col-[2/3] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-500">Name</p>
-  <p class="col-[3/4] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-500">Events</p>
-  <p class="col-[4/5] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-500">Cost</p>
-  <p class="col-[5/6] row-[1/2] text-center p-4 border-b-2 border-b-gray-900 bg-gray-500 rounded-tr-md">Edit/Delete</p>
-  <ng-container *ngFor="let trip of (trips$ | async); index as i">
-    <div (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[1/2] row-['+ (i+2) +'/'+ (i+3) +'] border-b-2 border-b-gray-500 flex justify-center items-center'">
-      <p class="flex h-2 w-2 bg-green-500 rounded-full"></p>
-    </div>
-    <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[2/3] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.tripName}}</p>
+<div class="shadow-2xl shadow-gray-600 h-[42rem] overflow-y-scroll rounded-md">
+  <div class="w-[90%] h-[95%] ml-auto mr-auto  mt-6">
+    <div [class]="'trips grid grid-cols-tripColumns grid-rows-[repeat('+ rowCount + ', 3rem)]'">
+      <div class="col-[1/2] row-[1/2] border-b-2 border-b-gray-400 bg-gray-200 rounded-tl-md"></div>
+      <p class="col-[2/3] row-[1/2] text-center p-4 border-b-2 border-b-gray-400 bg-gray-200">Name</p>
+      <p class="col-[3/4] row-[1/2] text-center p-4 border-b-2 border-b-gray-400 bg-gray-200">Events</p>
+      <p class="col-[4/5] row-[1/2] text-center p-4 border-b-2 border-b-gray-400 bg-gray-200">Cost</p>
+      <p class="col-[5/6] row-[1/2] text-center p-4 border-b-2 border-b-gray-400 bg-gray-200 rounded-tr-md">Edit/Delete</p>
+      <ng-container *ngFor="let trip of (trips$ | async); index as i">
 
-    <ng-container *ngIf="trip.itinerary.activities.length > 0; else noEvents">
-      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities.length}}</p>
-      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">{{trip.itinerary.activities[0].cost}}</p>
-      <div [class]="'col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] flex justify-center items-center gap-4 border-b-2 border-b-gray-500'">
-        <span (click)="displayForm(i)" class="hover:text-blue-500" nz-icon nzType="edit" nzTheme="outline"></span>
-        <span (click)="deleteTrip(i)" class="hover:text-red-600" nz-icon nzType="delete" nzTheme="outline"></span>
-      </div>
-      <ng-container *ngIf="showForm && (i === tripIndex)">
-        <app-trip-form [formData]="{
+        <ng-container class="group hover:bg-tertiary hidden">
+
+          <div (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[1/2] row-['+ (i+2) +'/'+ (i+3) +'] border-b-2 border-b-gray-400 flex justify-center items-center'">
+            <p class="flex h-2 w-2 bg-green-500 rounded-full"></p>
+          </div>
+          <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[2/3] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-400'">{{trip.tripName}}</p>
+
+          <ng-container *ngIf="trip.itinerary.activities.length > 0; else noEvents">
+            <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-400'">{{trip.itinerary.activities.length}}</p>
+            <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-400'">{{trip.itinerary.activities[0].cost}}</p>
+            <div [class]="'col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] flex justify-center items-center gap-4 border-b-2 border-b-gray-400'">
+              <span (click)="displayForm(i)" class="hover:text-blue-500 cursor-pointer" nz-icon nzType="edit" nzTheme="outline"></span>
+              <span (click)="deleteTrip(i)" class="hover:text-red-600 cursor-pointer" nz-icon nzType="delete" nzTheme="outline"></span>
+            </div>
+            <ng-container *ngIf="showForm && (i === tripIndex)">
+              <app-trip-form [formData]="{
             tripName: trip.tripName,
             description: trip.description,
             itineraryName: trip.itinerary.itineraryName,
             itineraryDescription: trip.itinerary.description
           }"
-          (tripOutputForm)="editForm($event, i)" (submission)="displayForm(i)"/>
+                             (tripOutputForm)="editForm($event, i)" (submission)="displayForm(i)"/>
+            </ng-container>
+          </ng-container>
+
+          <ng-template #noEvents>
+            <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-400'">No Events</p>
+            <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-400'">No Events</p>
+            <div [class]="'col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] flex justify-center items-center gap-4 border-b-2 border-b-gray-400'">
+              <span (click)="displayForm(i)" class="hover:text-blue-500 cursor-pointer" nz-icon nzType="edit" nzTheme="outline"></span>
+              <span (click)="deleteTrip(i)" class="hover:text-red-600 cursor-pointer" nz-icon nzType="delete" nzTheme="outline"></span>
+            </div>
+          </ng-template>
+
+        </ng-container>
+
+
       </ng-container>
-    </ng-container>
 
-    <ng-template #noEvents>
-      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[3/4] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">No Events</p>
-      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[4/5] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">No Events</p>
-      <p (click)="navigateToEdit(trip.tripID)" [class]="'cursor-pointer col-[5/6] row-['+ (i+2) +'/'+ (i+3) +'] text-center p-4 border-b-2 border-b-gray-500'">No Events</p>
-    </ng-template>
+    </div>
 
-  </ng-container>
+  </div>
 
 </div>
-
-
