@@ -22,7 +22,7 @@ export class CurrencyConversionService {
     if(this.exchangeRates) {
       trip.itinerary.activities.map(activity => {
         if(this.exchangeRates)
-        cost += (activity.cost * this.exchangeRates.data[activity.currency as keyof Data].value)
+        cost += (activity.cost / this.exchangeRates.data[activity.currency as keyof Data].value)
       })
 
       return cost;

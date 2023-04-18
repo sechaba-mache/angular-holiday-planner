@@ -13,6 +13,7 @@ export class TripFormComponent implements OnChanges{
   @Input() formData: ITripForm |undefined;
   @Output() tripOutputForm = new EventEmitter<ITripForm>();
   @Output() submission = new EventEmitter<MouseEvent>()
+  @Output() closeForm = new EventEmitter<MouseEvent>()
 
   constructor(private router: Router) {
   }
@@ -49,6 +50,7 @@ export class TripFormComponent implements OnChanges{
   }
 
   handleCancel() {
-    this.router.navigate(["../../home/calendar"])
+    if(this.router.url.includes("add-trip")) this.router.navigate(["../../home/calendar"])
+    else this.closeForm.emit()
   }
 }
