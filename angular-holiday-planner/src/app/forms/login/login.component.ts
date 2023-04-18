@@ -44,7 +44,7 @@ export class LoginComponent {
       if(user !== "error"){
         this.auth.user = user as User;
         this.auth.loggedIn = true;
-        this.router.navigate(["../home/calendar"])
+        this.router.navigate(["../home/calendar"]).catch(() => window.alert("An error has occurred"))
       }
       else {
         this.loginForm.reset();

@@ -36,7 +36,7 @@ export class TripTileComponent implements OnInit {
   }
 
   navigateToEdit(tripId: string) {
-    this.router.navigate([`../../home/${tripId}`]);
+    this.router.navigate([`../../home/${tripId}`]).catch(() => window.alert("An error has occurred"));
   }
 
   ngOnInit(): void {

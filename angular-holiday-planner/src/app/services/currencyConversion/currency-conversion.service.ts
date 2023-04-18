@@ -24,8 +24,6 @@ export class CurrencyConversionService {
         this.exchangeRates = res.data
         let cost = 0;
         trip.itinerary.activities.map(activity => {
-          // console.log(activity.currency)
-          // console.log(this.exchangeRates)
           if(this.exchangeRates) cost += (activity.cost * (Number(this.exchangeRates?.[`${activity.currency}`].code)))
           console.log(cost)
         })
