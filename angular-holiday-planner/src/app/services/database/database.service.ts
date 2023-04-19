@@ -23,10 +23,13 @@ export class DatabaseService {
     return from(getDoc(docRef)).pipe(
       switchMap(async (trip) => {
         const newTrips = trip.data()?.['trips'] as ITrip[];
-        newTrips.map(trip => {
-          trip.tripCost = this.currencyConverter.convert(trip).toFixed(2)
-        })
-        return newTrips
+        if(newTrips){
+          newTrips.map(trip => {
+            trip.tripCost = this.currencyConverter.convert(trip).toFixed(2)
+          })
+          return newTrips
+        }
+        else return []
       })
     )
   }
@@ -84,8 +87,8 @@ export class DatabaseService {
     const docRef = doc(this.firestore, "Trips", documentName);
     let currentTrips: ITrip[] | undefined;
     this.store.select(selectUserTrips).subscribe(res => currentTrips = res);
-    if (currentTrips) {
-      trip.tripID = String(currentTrips.length + 1)
+    if (currentTrips && currentTrips.length > 0) {
+      trip.tripID = String(currentTrips.length)
       const newTrips: ITrip[] = [...currentTrips, trip];
       updateDoc(docRef, "trips", newTrips).then(() => this.store.dispatch(loadFirestores())).catch(() => window.alert("An error has occurred"));
     }
