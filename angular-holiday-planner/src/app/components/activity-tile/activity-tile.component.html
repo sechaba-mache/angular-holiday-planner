@@ -1,6 +1,6 @@
 <h1 class="pr-4 flex justify-center pt-20 w-screen font-extrabold text-2xl">Activities</h1>
 
-<div class="flex flex-wrap pt-2 overflow-y-scroll" *ngIf="tripIndex && activities$">
+<div class="flex flex-wrap pt-2 overflow-y-scroll">
   <ng-container *ngFor="let activity of (activities$ | async)?.itinerary?.activities; index as i">
     <div
       class="grid grid-cols-activityColumns grid-rows-[3rem] w-[95%] ml-auto mr-auto text-center items-center bg-base rounded-xl m-2 shadow-md shadow-gray-400">
@@ -40,7 +40,7 @@
   <span nz-icon nzType="plus-circle" nzTheme="outline" class="mt-1 text-white"></span>
 </div>
 
-<ng-container *ngIf="showAddForm && tripIndex">
+<ng-container *ngIf="showAddForm">
   <div class="fixed mr-auto ml-auto left-0 right-0 top-32 w-[55%] max-md:w-3/4">
     <app-activity-form (closeForm)="flipAddForm()" (submission)="flipAddForm()"
       (activityOutputForm)="createActivity($event, tripIndex)"></app-activity-form>
@@ -58,3 +58,5 @@
     </svg>
   </div>
 </ng-template>
+
+

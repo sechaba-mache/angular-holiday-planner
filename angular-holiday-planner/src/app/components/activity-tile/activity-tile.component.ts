@@ -17,7 +17,7 @@ import {AuthService} from "../../services/auth/auth.service";
 export class ActivityTileComponent {
 
   activities$: Observable<ITrip | undefined> | undefined;
-  tripIndex: number | undefined;
+  tripIndex = Number(this.router.snapshot.paramMap.get("tripId"))
   activityIndex: number | undefined;
   selectedActivity: IActivity | undefined;
   showUpsertForm = false;
@@ -25,26 +25,22 @@ export class ActivityTileComponent {
 
   constructor(private store: Store, private router: ActivatedRoute, private database: DatabaseService, private auth: AuthService) {
     this.activities$ = store.select(selectUserTrips).pipe(
-      switchMap( async trips => trips.find(trip => trip.tripID === router.snapshot.paramMap.get("tripId"))),
+      switchMap( async trips => {
+        return trips.find(trip => trip.tripID === router.snapshot.paramMap.get("tripId"))
+      }),
     )
-
-    this.activities$.pipe(first()).subscribe(trip => this.tripIndex = Number(trip?.tripID))
   }
 
   deleteActivity(activityIndex: number, tripIndex: number) {
-    tripIndex--;
     this.database.deleteTripActivity(tripIndex, activityIndex, String(this.auth.user?.uid));
   }
 
   editActivity(event: IActivityForm, tripIndex: number, activityIndex: number) {
-    tripIndex--;
     console.log(activityIndex)
     this.database.upsertTripActivity(event, tripIndex, activityIndex, String(this.auth.user?.uid));
   }
 
   createActivity(event: IActivityForm, tripIndex: number) {
-    tripIndex--;
-
     if(event.currency === "Select Currency") event.currency = "ZAR"
     this.database.addActivity(event, tripIndex, String(this.auth.user?.uid));
 
@@ -53,6 +49,7 @@ export class ActivityTileComponent {
   protected readonly Object = Object;
 
   flipAddForm() {
+
     this.showAddForm = !this.showAddForm;
     this.showUpsertForm = false;
   }

@@ -35,6 +35,7 @@ export class AuthService {
   }
 
   logout() {
+    sessionStorage.clear()
     this.loggedIn = false;
     this.user = null;
     return signOut(this.auth).catch(() => window.alert("An error has occurred"));
