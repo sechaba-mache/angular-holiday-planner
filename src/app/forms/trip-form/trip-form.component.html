@@ -1,0 +1,22 @@
+<nz-modal nzVisible="true" nzTitle="Trip Form" (nzOnCancel)="handleCancel()" (nzOnOk)="submitTripForm()" [nzStyle]="{top: '14rem'}">
+  <ng-container *nzModalContent>
+
+    <form [formGroup]="tripForm" class="text-center flex flex-wrap justify-center">
+
+      <label class="w-full text-xl font-medium m-3 ">Trip Name:</label>
+      <input formControlName="tripName" type="text" placeholder="Please Enter The Name of Your Trip" class="w-3/4 h-8 pl-3 rounded-md border-2 border-gray-300">
+      <ng-container *ngIf="tripName?.invalid && (tripName?.dirty || tripName?.touched);">
+        <ng-container *ngIf="!tripName?.errors?.['required']; else notValid" />
+      </ng-container>
+
+      <label class="w-full text-xl font-medium m-3 ">Description:</label>
+      <input formControlName="description" type="text" placeholder="Please Enter a Description for the trip" class="w-3/4 h-8 pl-3 rounded-md border-2 border-gray-300">
+
+    </form>
+
+  </ng-container>
+</nz-modal>
+
+<ng-template #notValid>
+  <p style="color: red; width: 100%">Input is required</p>
+</ng-template>

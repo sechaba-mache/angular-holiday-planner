@@ -1,0 +1,18 @@
+<div class="nav-bar flex flex-nowrap fixed bg-gradient-to-r from-primary to-secondary h-16 w-screen z-50">
+  <div class="burger-menu flex justify-center items-center" >
+    <span *ngIf="!router.url.includes('calendar')" class="pl-4 text-xl text-white" (click)="back()" nz-icon nzType="arrow-left" nzTheme="outline"></span>
+
+
+  </div>
+  <div class="heading h-16 w-full flex justify-center items-center">
+    <img class="absolute w-20 h-10 left-0 right-8 ml-auto mr-auto top-3"
+         ngSrc="assets/logos/planme-high-resolution-logo-color-on-transparent-background.png" alt="PlanMe" height="1247"
+         width="2000">
+  </div>
+
+  <div class="burger-menu flex justify-center items-center" >
+    <span (click)="logout()" class="pr-4 text-xl text-white" nz-icon nzType="logout" nzTheme="outline"></span>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,77 @@
+<div class="h-[48rem] flex-1 p-3 rounded-md shadow-2xl shadow-secondary bg-white">
+  <span *ngIf="!router.url.includes('add-trip')" (click)="close()" class="flex justify-end" nz-icon nzType="close" nzTheme="outline"></span>
+  <form [formGroup]="activityForm" class="w-80% flex flex-col">
+
+    <label class=" mt-2 mb-1">Activity Name:</label>
+    <input formControlName="activityName" type="text" placeholder="Enter Activity Name" class="pl-3 w-[100%] h-8 rounded-md mt-2 mb-1 border-2 border-gray-300">
+
+    <label class=" mt-2 mb-1">Description:</label>
+    <input formControlName="description" type="text" placeholder="Enter Description" class="pl-3 w-[100%] h-8 rounded-md mt-2 mb-1 border-2 border-gray-300">
+
+    <label class=" mt-2 mb-1">Notes:</label>
+    <input formControlName="notes" type="text" placeholder="Enter Notes" class="pl-3 w-[100%] h-8 rounded-md mt-2 mb-1 border-2 border-gray-300">
+
+    <label class=" mt-2 mb-2">Start Day and Time:</label>
+    <nz-date-picker
+      class="w-full rounded-md mt-2 mb-2 border-2 border-gray-300"
+      [nzDisabledDate]="disabledStartDate"
+      nzShowTime
+      nzFormat="yyyy-MM-dd HH:mm:ss"
+      formControlName="startDayTime"
+      nzPlaceHolder="Start"
+      (nzOnOpenChange)="handleStartOpenChange($event)"
+    ></nz-date-picker>
+
+    <label class=" mt-2 mb-2">End Day and Time:</label>
+    <nz-date-picker
+      #endDatePicker
+      class="w-full rounded-md mt-2 mb-2 border-2 border-gray-300"
+      [nzDisabledDate]="disabledEndDate"
+      nzShowTime
+      nzFormat="yyyy-MM-dd HH:mm:ss"
+      formControlName="endDayTime"
+      nzPlaceHolder="End"
+      (nzOnOpenChange)="handleEndOpenChange($event)"
+    ></nz-date-picker>
+
+    <div class="w-full grid grid-cols-[repeat(2, 50%)] grid-rows-[repeat(2, 1fr)]">
+      <label class="col-[1/2] row-[1/2] mt-2 mb-1">Cost:</label>
+      <label class="text-center col-[2/3] row-[1/2] mt-3 mb-1">Currency:</label>
+
+      <input formControlName="cost" type="text" placeholder="Enter Cost" class="w-40 col-[1/2] row-[2/3] pl-3 h-8 rounded-md mt-2 mb-1 border-2 border-gray-300">
+
+      <button nz-button nz-dropdown [nzDropdownMenu]="menu4" class="bg-white h-8 rounded-md text-black mt-2 border-2 border-gray-300">
+        {{selectedCurrency}}
+        <span nz-icon nzType="down"></span>
+      </button>
+      <nz-dropdown-menu #menu4="nzDropdownMenu" class="row-[2/3] col-[2/3] mt-2 mb-1">
+        <ul nz-menu class="h-32 overflow-y-scroll rounded-xl">
+          <ng-container *ngFor="let currency of currencies; index as i">
+            <li nz-menu-item (click)="setCurrency(i)">{{currency}}</li>
+          </ng-container>
+        </ul>
+      </nz-dropdown-menu>
+    </div>
+
+
+    <label class=" mt-2 mb-1">Start Location:</label>
+    <input formControlName="startLocation" type="text" placeholder="Enter Start Location" class="pl-3 w-[100%] h-8 rounded-md mt-2 mb-1 border-2 border-gray-300">
+
+    <label class=" mt-2 mb-1">End Location:</label>
+    <input formControlName="endLocation" type="text" placeholder="Enter End Location" class="pl-3 w-[100%] h-8 rounded-md mt-2 mb-1 border-2 border-gray-300">
+
+    <div class="flex flex-wrap mt-3 justify-center items-center">
+
+        <nz-radio-group formControlName="travel" nzButtonStyle="solid">
+          <label nz-radio-button [nzValue]="true">Travel</label>
+          <label nz-radio-button [nzValue]="false">Local</label>
+        </nz-radio-group>
+
+    </div>
+
+    <div class="flex flex-wrap mt-3 justify-center items-center">
+      <button type="submit" class="h-9 w-32 bg-blue-500 rounded-md text-white" (click)="submitActivityForm($event)">Submit</button>
+    </div>
+
+  </form>
+</div>
