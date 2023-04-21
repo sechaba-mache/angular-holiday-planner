@@ -14,7 +14,7 @@ export class FullDatePipe implements PipeTransform {
       return newDate.toLocaleDateString();
 
     }
-    return new Date(Date.now()).toLocaleTimeString()
+    return new Date(Date.now()).toLocaleDateString()
   }
 
 }
