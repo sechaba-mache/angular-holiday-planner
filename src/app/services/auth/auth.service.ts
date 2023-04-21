@@ -17,7 +17,6 @@ export class AuthService {
   user: User | null | undefined;
   loggedIn = false;
   constructor(private auth: Auth) {
-    console.log(sessionStorage.key(0))
     const storage = sessionStorage.key(0);
 
     if (storage) {
