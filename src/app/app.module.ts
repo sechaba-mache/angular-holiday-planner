@@ -43,6 +43,7 @@ import { NzSwitchModule } from "ng-zorro-antd/switch";
 import { NzSegmentedModule } from "ng-zorro-antd/segmented";
 import { NzRadioModule } from "ng-zorro-antd/radio";
 import { FullDatePipe } from './pipes/full-date.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(en);
 
@@ -89,7 +90,13 @@ registerLocaleData(en);
     NzButtonModule,
     NzSwitchModule,
     NzSegmentedModule,
-    NzRadioModule
+    NzRadioModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
