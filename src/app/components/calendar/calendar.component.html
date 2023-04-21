@@ -2,7 +2,7 @@
   <div class="p-4 ml-auto mr-auto">
     <nz-calendar>
       <ul *nzDateCell="let date" class="events">
-        <ng-container [ngSwitch]="date.getDate()">
+        <ng-container [ngSwitch]="date.toLocaleDateString()">
 
           <ng-container *ngFor="let trip of (trips$ | async)">
 
@@ -10,8 +10,9 @@
 
               <ng-container *ngFor="let activity of trip.itinerary.activities">
 
-                <ng-container *ngSwitchCase="(activity.startDayTime.toString() | lowercase | datePipe).split(' ')[2]">
-                  <nz-badge [nzStatus]="getStatus(activity)" [nzText]="trip.tripName + ': ' + activity.activityName"></nz-badge>
+                <ng-container *ngSwitchCase="(activity.startDayTime.toString() | lowercase | fullDate)">
+                  <nz-badge [nzStatus]="getStatus(activity)"
+                    [nzText]="trip.tripName + ': ' + activity.activityName"></nz-badge>
                 </ng-container>
               </ng-container>
 

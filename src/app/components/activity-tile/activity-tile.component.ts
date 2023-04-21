@@ -1,13 +1,13 @@
-import {Component} from '@angular/core';
-import {IActivity, ITrip} from "../../models/trips";
-import {Store} from "@ngrx/store";
-import {selectUserTrips} from "../../store/selectors/firestore.selectors";
-import {switchMap} from "rxjs/operators";
-import {ActivatedRoute} from "@angular/router";
-import {first, Observable} from "rxjs";
-import {IActivityForm} from "../../models/forms";
-import {DatabaseService} from "../../services/database/database.service";
-import {AuthService} from "../../services/auth/auth.service";
+import { Component } from '@angular/core';
+import { IActivity, ITrip } from "../../models/trips";
+import { Store } from "@ngrx/store";
+import { selectUserTrips } from "../../store/selectors/firestore.selectors";
+import { switchMap } from "rxjs/operators";
+import { ActivatedRoute } from "@angular/router";
+import { first, Observable } from "rxjs";
+import { IActivityForm } from "../../models/forms";
+import { DatabaseService } from "../../services/database/database.service";
+import { AuthService } from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-activity-tile',
@@ -25,7 +25,7 @@ export class ActivityTileComponent {
 
   constructor(private store: Store, private router: ActivatedRoute, private database: DatabaseService, private auth: AuthService) {
     this.activities$ = store.select(selectUserTrips).pipe(
-      switchMap( async trips => {
+      switchMap(async trips => {
         return trips.find(trip => trip.tripID === router.snapshot.paramMap.get("tripId"))
       }),
     )
@@ -36,12 +36,11 @@ export class ActivityTileComponent {
   }
 
   editActivity(event: IActivityForm, tripIndex: number, activityIndex: number) {
-    console.log(activityIndex)
     this.database.upsertTripActivity(event, tripIndex, activityIndex, String(this.auth.user?.uid));
   }
 
   createActivity(event: IActivityForm, tripIndex: number) {
-    if(event.currency === "Select Currency") event.currency = "ZAR"
+    if (event.currency === "Select Currency") event.currency = "ZAR"
     this.database.addActivity(event, tripIndex, String(this.auth.user?.uid));
 
   }
@@ -56,9 +55,9 @@ export class ActivityTileComponent {
 
   flipUpsertForm(activityIndex: number) {
     this.showUpsertForm = !this.showUpsertForm;
-    if(this.showUpsertForm) {
+    if (this.showUpsertForm) {
       this.activities$?.pipe(first()).subscribe(trip => {
-        if(trip) this.selectedActivity = trip.itinerary.activities[activityIndex]
+        if (trip) this.selectedActivity = trip.itinerary.activities[activityIndex]
       });
 
       this.activityIndex = activityIndex;

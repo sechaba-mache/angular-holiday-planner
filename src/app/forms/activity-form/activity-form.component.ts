@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Currencies} from "../../models/currencies";
-import {NzDatePickerComponent} from "ng-zorro-antd/date-picker";
-import {IActivityForm} from "../../models/forms";
-import {IActivity} from "../../models/trips";
-import {DatePipePipe} from "../../pipes/date-pipe.pipe";
-import {Router} from "@angular/router";
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Currencies } from "../../models/currencies";
+import { NzDatePickerComponent } from "ng-zorro-antd/date-picker";
+import { IActivityForm } from "../../models/forms";
+import { IActivity } from "../../models/trips";
+import { DatePipePipe } from "../../pipes/date-pipe.pipe";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-activity-form',
@@ -14,7 +14,7 @@ import {Router} from "@angular/router";
 })
 export class ActivityFormComponent implements OnChanges {
 
-  @Input() formData: IActivity |undefined;
+  @Input() formData: IActivity | undefined;
   @Output() activityOutputForm = new EventEmitter<IActivityForm>();
   @Output() submission = new EventEmitter<MouseEvent>()
   @Output() closeForm = new EventEmitter<MouseEvent>()
@@ -27,14 +27,14 @@ export class ActivityFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.formData = changes?.['formData'].currentValue;
 
-    if(this.formData){
+    if (this.formData) {
       const splitStartDate = this.datePipe.transform(this.formData.startDayTime.toString().toLowerCase()).split("at")
       const splitEndDate = this.datePipe.transform(this.formData.endDayTime.toString().toLowerCase()).split("at")
       let startDateSlice = splitStartDate;
       let endDateSlice = splitEndDate;
 
-      if(splitStartDate.length === 3) startDateSlice = splitStartDate.slice(1)
-      if(splitEndDate.length === 3) endDateSlice = splitEndDate.slice(1)
+      if (splitStartDate.length === 3) startDateSlice = splitStartDate.slice(1)
+      if (splitEndDate.length === 3) endDateSlice = splitEndDate.slice(1)
 
       const formStartDate = new Date(startDateSlice[0])
       const formEndDate = new Date(endDateSlice[0])
@@ -59,7 +59,7 @@ export class ActivityFormComponent implements OnChanges {
   travel = false;
   selectedCurrency: string = "Select Currency";
   currencies = Object.values(Currencies).filter(val => {
-    if(isNaN(Number(val))) return val;
+    if (isNaN(Number(val))) return val;
     return
   })
 
@@ -77,7 +77,7 @@ export class ActivityFormComponent implements OnChanges {
 
   flipTravel() {
     this.travel = !this.travel
-    console.log(this.travel)
+
   }
 
   setCurrency(currencyIndex: number) {
@@ -114,7 +114,7 @@ export class ActivityFormComponent implements OnChanges {
   }
 
   submitActivityForm(event: MouseEvent) {
-    this.activityOutputForm.emit(({...this.activityForm.value, currency: this.selectedCurrency}) as IActivityForm)
+    this.activityOutputForm.emit(({ ...this.activityForm.value, currency: this.selectedCurrency }) as IActivityForm)
     this.submission.emit(event);
   }
 
